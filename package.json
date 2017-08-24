@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/effektif/react-mentions",
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.4",
@@ -79,7 +80,7 @@
     "babel-runtime": "^6.22.0",
     "lodash": "^4.5.1",
     "prop-types": "^15.5.8",
-    "substyle": "^6.0.0"
+    "substyle": "^6.1.1"
   },
   "peerDependencies": {
     "react": ">=0.14.0",
