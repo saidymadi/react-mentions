@@ -1,50 +1,51 @@
 export default ({
   control: {
-    backgroundColor: '#fff',
-
-    fontSize: 12,
-    fontWeight: 'normal',
+      display: 'inline-block',
+      width: '100%',
+      margin: '0',
+      backgroundColor: '#fff',
+      fontSize: '16px',
+      fontWeight: 'normal',
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
   },
 
   input: {
-    margin: 0,
+    margin: '0',
   },
 
   '&singleLine': {
     control: {
-      display: 'inline-block',
-
-      width: 130,
+     
     },
 
     highlighter: {
-      padding: 1,
+      padding: '12px',
       border: '2px inset transparent',
+      fontSize: '16px',
     },
 
     input: {
-      padding: 1,
-
-      border: '2px inset',
+      fontSize: '16px',
+      border: '1px solid #D0D2D3',
+      boxSizing: 'border-box',
+      padding: '12px',
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
   },
 
   '&multiLine': {
-    control: {
-      fontFamily: 'monospace',
-
-      border: '1px solid silver',
-    },
-
     highlighter: {
-      padding: 9,
+      padding: '12px',
+      border: '2px inset transparent',
+      fontSize: '16px',
     },
 
     input: {
-      padding: 9,
-      minHeight: 63,
-      outline: 0,
-      border: 0,
+      fontSize: '16px',
+      border: '1px solid #D0D2D3',
+      boxSizing: 'border-box',
+      padding: '12px',
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
   },
 

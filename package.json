@@ -1,7 +1,7 @@
 {
-  "name": "react-mentions",
-  "version": "1.2.0",
-  "description": "React mentions input",
+  "name": "@sm/react-mentions",
+  "version": "1.2.3",
+  "description": "React social markups",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run env NODE_ENV=test && mocha",
@@ -23,14 +23,9 @@
     "mentions",
     "react-component"
   ],
-  "author": "Jan-Felix Schwarz",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/effektif/react-mentions/issues"
-  },
+  "author": "Said Madi",
   "homepage": "https://github.com/effektif/react-mentions",
   "devDependencies": {
-    "axios": "^0.16.2",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.4",
@@ -77,6 +72,7 @@
     "webpack-dev-server": "2.4.1"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-runtime": "^6.22.0",
     "lodash": "^4.5.1",
     "prop-types": "^15.5.8",
@@ -85,5 +81,8 @@
   "peerDependencies": {
     "react": ">=0.14.0",
     "react-dom": ">=0.14.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.corp.surveymonkey.com/"
   }
 }

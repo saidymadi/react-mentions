@@ -16,14 +16,6 @@ module.exports = function(grunt) {
       ]
     },
 
-    less: {
-      default: {
-        files: {
-            "gh-pages/css/style.css": "gh-pages/less/react-mentions.less"
-        }
-      }
-    },
-
     copy: {
       default: {
         files: [

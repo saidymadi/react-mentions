@@ -615,7 +615,7 @@ const isMobileSafari = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.t
 const styled = defaultStyle({
   position: "relative",
   overflowY: "visible",
-
+  margin: 0,
   input: {
     display: "block",
     position: "absolute",
