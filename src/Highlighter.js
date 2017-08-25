@@ -206,7 +206,7 @@ const styled = defaultStyle({
   position: 'relative',
   width: 'inherit',
   color: 'transparent',
-
+  margin: 0,
   overflow: 'hidden',
 
   whiteSpace: 'pre-wrap',
