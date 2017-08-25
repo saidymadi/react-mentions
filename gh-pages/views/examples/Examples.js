@@ -60,7 +60,7 @@ export default function Examples() {
       <div className="examples">
         <div className="row">
           <div className="col-lg-12">
-            <MultipleTrigger data={users} />
+            <MultipleTrigger value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation... "} data={users} />
           </div>
         </div>
         <div className="row">

@@ -242,7 +242,7 @@ class MentionsInput extends React.Component {
 
     let value = this.props.value || "";
     let newPlainTextValue = ev.target.value;
-
+    
     // Derive the new value to set by applying the local change in the textarea's plain text
     let newValue = utils.applyChangeToValue(
       value, this.props.markup,
