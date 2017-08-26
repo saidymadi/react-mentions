@@ -42,7 +42,7 @@ class SocialMarkupInput extends React.Component {
     const { value, data, onChange, onAdd,singleLine } = this.props;
 
     return (
-      <div style={{margin:"0"}}>
+      <div style={{margin:"0", all: 'initial'}}>
         <MentionsInput 
           singleLine= {singleLine ? true : false}
           value={this.state.value}

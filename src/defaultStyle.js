@@ -1,12 +1,13 @@
 export default ({
   control: {
-      display: 'inline-block',
+      
       width: '100%',
       margin: '0',
       backgroundColor: '#fff',
       fontSize: '16px',
       fontWeight: 'normal',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      border : '1px solid orange'
   },
 
   input: {
@@ -15,19 +16,19 @@ export default ({
 
   '&singleLine': {
     control: {
-     
+     display: 'inline-block',
+     border : '1px solid blue'
     },
 
     highlighter: {
       padding: '12px',
-      border: '2px inset transparent',
+    
       fontSize: '16px',
     },
 
     input: {
       fontSize: '16px',
-      border: '1px solid #D0D2D3',
-      boxSizing: 'border-box',
+      // border: '1px solid #D0D2D3',
       padding: '12px',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
@@ -36,14 +37,14 @@ export default ({
   '&multiLine': {
     highlighter: {
       padding: '12px',
-      border: '2px inset transparent',
+    
       fontSize: '16px',
     },
 
     input: {
+      border : '1px solid blue',
       fontSize: '16px',
-      border: '1px solid #D0D2D3',
-      boxSizing: 'border-box',
+      // border: '1px solid #D0D2D3',
       padding: '12px',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },

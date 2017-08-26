@@ -7,9 +7,9 @@ const styled = defaultStyle({
 });
 
 const Mention = styled(({ display, style }) => (
-  <strong {...style}>
+  <span {...style}>
     { display }
-  </strong>
+  </span>
 ));
 
 Mention.propTypes = {

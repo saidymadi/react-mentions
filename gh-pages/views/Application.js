@@ -58,7 +58,7 @@ export default function ReactMentions() {
         
       <SocialMarkupInput data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>
       <br/>
-      <SocialMarkupInput singleLine={true} data={asyncData} value={"stuff"}/>
+      <SocialMarkupInput singleLine={true} data={asyncData} value={"Hi @[John Doe](user:johndoe)"}/>
       </div>
     </div>
   )
