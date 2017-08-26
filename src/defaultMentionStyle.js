@@ -1,5 +1,4 @@
 export default ({
-  backgroundColor: '#cee4e5',
-  color: 'red',
-  display: 'inline-block'
+  backgroundColor: 'rgba(0,191,111,0.5)',
+  padding: 1
 })
