@@ -39,7 +39,7 @@ class SocialMarkupInput extends React.Component {
 
   render() {
    //data passed is got to be the url for us to fetch stuff 
-    const { value, data, onChange, onAdd,singleLine } = this.props;
+    const { value, data, onChangeCallBack, onAdd,singleLine } = this.props;
 
     return (
       <div style={{margin:"0", all: 'initial'}}>
@@ -47,7 +47,13 @@ class SocialMarkupInput extends React.Component {
           singleLine= {singleLine ? true : false}
           value={this.state.value}
           onChange={(ev,val, textAreaValAndMarkup , listOfMentions )=>{
-            this.setState({value: val});}}
+            
+              this.setState({value: val});
+              //call back with the content value of the text area 
+              if(onChangeCallBack && typeof onChangeCallBack === 'function'){
+                onChangeCallBack(val,textAreaValAndMarkup,listOfMentions);
+              }
+            }}
           style={defaultStyle}
           placeholder={"Mention people using '@'"}
         >
