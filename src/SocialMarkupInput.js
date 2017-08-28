@@ -39,15 +39,15 @@ class SocialMarkupInput extends React.Component {
 
   render() {
    //data passed is got to be the url for us to fetch stuff 
-    const { value, data, onChangeCallBack, onAdd,singleLine } = this.props;
+    const { value, data, onChangeCallBack, onAdd,singleLine , readOnly , placeholderText } = this.props;
 
     return (
       <div style={{margin:"0", all: 'initial'}}>
         <MentionsInput 
+          readOnly={readOnly? true:false}
           singleLine= {singleLine ? true : false}
           value={this.state.value}
           onChange={(ev,val, textAreaValAndMarkup , listOfMentions )=>{
-            
               this.setState({value: val});
               //call back with the content value of the text area 
               if(onChangeCallBack && typeof onChangeCallBack === 'function'){
@@ -55,14 +55,15 @@ class SocialMarkupInput extends React.Component {
               }
             }}
           style={defaultStyle}
-          placeholder={"Mention people using '@'"}
+          placeholder={placeholderText? placeholderText:"Mention people using '@'"}
         >
-          <Mention
-            data={this.state.suggestionsList}
-            onAdd={(added)=>{console.log(added)} }
-            style={defaultMentionStyle}
-            isLoading={this.state.isLoading}
-          />
+        <Mention 
+          readOnly={readOnly? true:false}
+          data={this.state.suggestionsList}
+          onAdd={(added)=>{console.log(added)} }
+          style={defaultMentionStyle}
+          isLoading={this.state.isLoading}
+        />
         </MentionsInput>
       </div>
     );

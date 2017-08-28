@@ -619,13 +619,9 @@ const styled = defaultStyle({
   input: {
     display: "block",
     position: "absolute",
-
     top: 0,
-
     boxSizing: "border-box",
-
     backgroundColor: "transparent",
-
     width: "inherit",
   },
 

@@ -57,11 +57,18 @@ export default function ReactMentions() {
         <h2 id="examples">Examples</h2>
         
       <SocialMarkupInput onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-
-        debugger;
+        
         }} data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>
+
       <br/>
-      <SocialMarkupInput singleLine={true} data={asyncData} value={"Hi @[John Doe](user:johndoe)"}/>
+        <h2>read Only</h2>
+      <SocialMarkupInput readOnly={true} onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        
+        }} data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>
+        <br/>
+
+{/* 
+      <SocialMarkupInput singleLine={true} data={asyncData} value={"Hi @[John Doe](user:johndoe)"}/> */}
       </div>
     </div>
   )
