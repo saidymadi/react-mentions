@@ -1,13 +1,11 @@
 export default ({
   control: {
-      
       width: '100%',
       margin: '0',
       backgroundColor: '#fff',
       fontSize: '16px',
       fontWeight: 'normal',
-      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      border : '1px solid orange'
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif'
   },
 
   input: {
@@ -17,18 +15,16 @@ export default ({
   '&singleLine': {
     control: {
      display: 'inline-block',
-     border : '1px solid blue'
     },
 
     highlighter: {
       padding: '12px',
-    
       fontSize: '16px',
     },
 
     input: {
       fontSize: '16px',
-      // border: '1px solid #D0D2D3',
+      border: '1px solid #D0D2D3',
       padding: '12px',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
@@ -42,25 +38,25 @@ export default ({
     },
 
     input: {
-      border : '1px solid blue',
       fontSize: '16px',
-      // border: '1px solid #D0D2D3',
+      border: '1px solid #D0D2D3',
       padding: '12px',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
   },
 
   suggestions: {
+    zIndex: 9999,
     list: {
       backgroundColor: 'white',
       border: '1px solid rgba(0,0,0,0.15)',
-      fontSize: 10,
+      fontSize: 14,
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
     },
 
     item: {
-      padding: '5px 15px',
-      borderBottom: '1px solid rgba(0,0,0,0.15)',
-
+      padding: '12px 12px',
+      borderBottom: '1px solid rgb(204, 204, 204)',
       '&focused': {
         backgroundColor: '#cee4e5',
       },
