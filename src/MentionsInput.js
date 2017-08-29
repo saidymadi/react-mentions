@@ -162,10 +162,10 @@ class MentionsInput extends React.Component {
     const {readOnly} = props;
   
     let renderedProps = props;
-    let readOnlyStyle = {...props.style , zIndex: '99'};
+    let readOnlyStyle = {...props.style , zIndex: '0'};
     //add border non if the view is read only
     if(readOnly){
-      readOnlyStyle = {...readOnlyStyle , border: 'none'};
+      readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
       renderedProps ={...props , style: readOnlyStyle}
     }
     
@@ -205,7 +205,7 @@ class MentionsInput extends React.Component {
     //add border non if the view is read only
     let renderedStyle = {...style("highlighter"),zIndex: '99', pointerEvents: 'none'};
     if(readOnly){
-      renderedStyle = {...renderedStyle, border:'none'};
+      renderedStyle = {...renderedStyle, border:'none', outline: 'none'};
     }
     return (
       <Highlighter
