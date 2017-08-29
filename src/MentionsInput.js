@@ -142,7 +142,7 @@ class MentionsInput extends React.Component {
     let inputProps = this.getInputProps(!singleLine);
 
     return (
-      <div { ...style("control") } className='saeeeed'>
+      <div { ...style("control") }>
         { this.renderHighlighter(inputProps.style) }
         { singleLine ? this.renderInput(inputProps) : this.renderTextarea(inputProps) }
       </div>
@@ -160,10 +160,12 @@ class MentionsInput extends React.Component {
 
   renderTextarea = (props) => {
     const {readOnly} = props;
-    //add border non if the view is read only
+  
     let renderedProps = props;
+    let readOnlyStyle = {...props.style , zIndex: '99'};
+    //add border non if the view is read only
     if(readOnly){
-      let readOnlyStyle = {...props.style , border: 'none'};
+      readOnlyStyle = {...readOnlyStyle , border: 'none'};
       renderedProps ={...props , style: readOnlyStyle}
     }
     
@@ -201,9 +203,9 @@ class MentionsInput extends React.Component {
     const { selectionStart, selectionEnd } = this.state;
     const { markup, displayTransform, singleLine, children, value, style, readOnly } = this.props;
     //add border non if the view is read only
-    let renderedStyle = style("highlighter");
+    let renderedStyle = {...style("highlighter"),zIndex: '99', pointerEvents: 'none'};
     if(readOnly){
-      renderedStyle = {...style("highlighter"), border:'none'};
+      renderedStyle = {...renderedStyle, border:'none'};
     }
     return (
       <Highlighter
