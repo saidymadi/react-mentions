@@ -1,6 +1,6 @@
 import React from 'react';
 import substyle from 'substyle';
-import './stylesheets/loadingIndicatorStyle';
+require('./stylesheets/loadingIndicatorStyle');
 function LoadingIndicator({ style }) {
   
   return (
