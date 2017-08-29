@@ -151,12 +151,13 @@ class MentionsInput extends React.Component {
 
   renderInput = (props) => {
     const {readOnly, maxLength} = props;
-    let renderedProps = props;
-    let readOnlyStyle = {...props.style , zIndex: '0'};
+
+    let inputStyle = {...props.style , zIndex: '0', border: '1px solid transparent'};
+    let renderedProps ={...props , style: inputStyle};
     //add border non if the view is read only
     if(readOnly){
-      readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
-      renderedProps ={...props , style: readOnlyStyle}
+      let readOnlyStyle = {...renderedProps.style , border: 'none', outline: 'none'};
+      renderedProps ={...renderedProps , style: readOnlyStyle}
     }
 
     return (
@@ -170,12 +171,13 @@ class MentionsInput extends React.Component {
   renderTextarea = (props) => {
     const {readOnly, maxLength} = props;
     
-    let renderedProps = props;
-    let readOnlyStyle = {...props.style , zIndex: '0'};
+    
+    let textAreaStyle = {...props.style , zIndex: '0'};
+    let renderedProps ={...props , style: textAreaStyle}
     //add border non if the view is read only
     if(readOnly){
-      readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
-      renderedProps ={...props , style: readOnlyStyle}
+      let readOnlyStyle = {...renderedProps.style , border: 'none', outline: 'none'};
+      renderedProps ={...renderedProps , style: readOnlyStyle}
     }
 
     return (
@@ -213,7 +215,7 @@ class MentionsInput extends React.Component {
     const { selectionStart, selectionEnd } = this.state;
     const { markup, displayTransform, singleLine, children, value, style, readOnly } = this.props;
     //add border non if the view is read only
-    let renderedStyle = {...style("highlighter"),zIndex: '99', pointerEvents: 'none'};
+    let renderedStyle = {...style("highlighter"),zIndex: '999', pointerEvents: 'none'};
     if(readOnly){
       renderedStyle = {...renderedStyle, border:'none', outline: 'none'};
     }

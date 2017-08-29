@@ -72,7 +72,7 @@ class SocialMarkupInput extends React.Component {
           readOnly={readOnly}
           data={data}
           onAdd={ onAdd }
-          style={{backgroundColor: 'transparent',color:'rgb(0,191,111)'}}
+          style={{color:'rgb(0,191,111)'}}
           isLoading={this.state.isLoading}
         />
         <Mention
