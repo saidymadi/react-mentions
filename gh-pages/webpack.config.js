@@ -11,6 +11,9 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ output: { comments: false } }),
+    new webpack.ProvidePlugin({
+      Promise: 'es6-promise-promise', // works as expected
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size

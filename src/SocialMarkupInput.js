@@ -1,42 +1,43 @@
 import React, { PropTypes } from 'react';
-
 import defaultStyle from './defaultStyle';
-
 import axios from 'axios';
 import MentionsInput from './MentionsInput';
 import Mention from './Mention';
 import './stylesheets/socialMarkupInput';
+
 class SocialMarkupInput extends React.Component {
   
   constructor(props){
     super(props);
-     this.fetchSuggestions = this.fetchSuggestions.bind(this);
+    //  this.fetchSuggestions = this.fetchSuggestions.bind(this);
+    const {data, isLoading, value} = this.props;
      this.state = {
-      value : this.props.value,
-      isLoading : this.props.isLoading,
-      suggestionsList : this.fetchSuggestions.bind(this)
+      value : value,
+      isLoading : isLoading,
+      suggestionsList: data
+      // suggestionsList : this.fetchSuggestions.bind(this)
     };
   }
 
-  fetchSuggestions (query, callback) {
-      this.setState({...this.state,isLoading:true });
-      axios.get('./views/sample-response.json').then((response) => {
-        setTimeout(()=>{
-          var data = response.data;
-          const results = [];
-          for (let i = 0, l = data.length; i < l; ++i) {
-            const display = data[i].display ||  data[i].id;
-            if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-              results.push(data[i]);
-            }
-          }
-          this.setState({...this.state, isLoading:false });
-          return callback(results);
-        },3000);
+  // fetchSuggestions (query, callback) {
+  //     this.setState({...this.state,isLoading:true });
+  //     axios.get('./views/sample-response.json').then((response) => {
+  //       setTimeout(()=>{
+  //         var data = response.data;
+  //         const results = [];
+  //         for (let i = 0, l = data.length; i < l; ++i) {
+  //           const display = data[i].display ||  data[i].id;
+  //           if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+  //             results.push(data[i]);
+  //           }
+  //         }
+  //         this.setState({...this.state, isLoading:false });
+  //         return callback(results);
+  //       },3000);
         
-      });
+  //     });
 
-    }
+  //   }
 
 
   render() {
@@ -69,7 +70,7 @@ class SocialMarkupInput extends React.Component {
           type="user"
           trigger="@"
           readOnly={readOnly}
-          data={this.fetchSuggestions}
+          data={data}
           onAdd={ onAdd }
           style={{backgroundColor: 'transparent',color:'rgb(0,191,111)'}}
           isLoading={this.state.isLoading}
@@ -78,7 +79,7 @@ class SocialMarkupInput extends React.Component {
           readOnly={readOnly}
           type="email"
           trigger={emailRegex}
-          data={this.fetchSuggestions}
+          data={data}
           onAdd={ onAdd }
           style={{ backgroundColor: 'rgba(0,191,111,0.1)',color:'rgb(0,191,111)'}}
         />
@@ -104,7 +105,7 @@ class SocialMarkupInput extends React.Component {
         <Mention 
           type="user"
           readOnly={readOnly? true:false}
-          data={this.fetchSuggestions}
+          data={data}
           onAdd={ onAdd }
           style={{backgroundColor: 'transparent',color:'rgb(0,191,111)'}}
           isLoading={this.state.isLoading}
