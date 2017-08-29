@@ -39,11 +39,12 @@ class SocialMarkupInput extends React.Component {
 
   render() {
    //data passed is got to be the url for us to fetch stuff 
-    const { value, data, onChangeCallBack, onAdd,singleLine , readOnly , placeholderText } = this.props;
+    const { value, data, onChangeCallBack, onAdd,singleLine , readOnly , placeholderText, maxAllowedTextLength } = this.props;
 
     return (
       <div style={{margin:"0", all: 'initial'}}>
         <MentionsInput 
+          maxLength={maxAllowedTextLength}
           readOnly={readOnly? true:false}
           singleLine= {singleLine ? true : false}
           value={this.state.value}

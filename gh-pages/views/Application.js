@@ -54,14 +54,29 @@ export default function ReactMentions() {
     <div className="react-mentions">
      
       <div className="container">
-        <h2 id="examples">Examples</h2>
+      <h2 id="examples">Examples</h2>
+      <br/>  
+      <h2>regular case</h2>
+      <SocialMarkupInput 
+      onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         
-      <SocialMarkupInput onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        
-        }} data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>
+      }} 
+      data={asyncData} 
+      value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      />
 
       <br/>
-        <h2>read Only</h2>
+      <h2>300 char limit case </h2>
+      <SocialMarkupInput 
+      maxAllowedTextLength={300}
+      onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        
+      }} 
+      data={users} 
+      value={"Hi @[John Doe](user:johndoe)"}
+      />
+      <br/>
+      <h2>read Only case</h2>
       <SocialMarkupInput readOnly={true} onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         
         }} data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>

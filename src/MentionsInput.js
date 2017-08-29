@@ -159,8 +159,8 @@ class MentionsInput extends React.Component {
   };
 
   renderTextarea = (props) => {
-    const {readOnly} = props;
-  
+    const {readOnly, maxLength} = props;
+    
     let renderedProps = props;
     let readOnlyStyle = {...props.style , zIndex: '0'};
     //add border non if the view is read only
@@ -168,9 +168,11 @@ class MentionsInput extends React.Component {
       readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
       renderedProps ={...props , style: readOnlyStyle}
     }
-    
+   // let maxCharCount = maxAllowedTextLength ? maxAllowedTextLength : 100;
+    debugger;
     return (
       <textarea
+        maxLength={maxLength || null}
         ref="input"
         { ...renderedProps } />
     );
