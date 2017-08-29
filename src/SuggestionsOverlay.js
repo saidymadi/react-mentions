@@ -53,16 +53,18 @@ class SuggestionsOverlay extends Component {
       <div
         {...style}
         onMouseDown={onMouseDown}
-      >
+      > 
 
-        <ul
+       {!this.props.isLoading && 
+        (<ul
           ref="suggestions"
           { ...style("list") }
         >
           { this.renderSuggestions() }
-        </ul>
+        </ul>)
+       }
 
-        { this.renderLoadingIndicator() }
+        {this.props.isLoading && (<LoadingIndicator { ...this.props.style("loadingIndicator") } />) }
       </div>
     );
   }
@@ -109,13 +111,6 @@ class SuggestionsOverlay extends Component {
     return suggestion.id;
   }
 
-  renderLoadingIndicator () {
-    if(!this.props.isLoading) {
-      return;
-    }
-
-    return <LoadingIndicator { ...this.props.style("loadingIndicator") } />
-  }
 
   handleMouseEnter(index, ev) {
     if(this.props.onMouseEnter) {

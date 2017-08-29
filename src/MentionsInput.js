@@ -150,11 +150,20 @@ class MentionsInput extends React.Component {
   };
 
   renderInput = (props) => {
+    const {readOnly, maxLength} = props;
+    let renderedProps = props;
+    let readOnlyStyle = {...props.style , zIndex: '0'};
+    //add border non if the view is read only
+    if(readOnly){
+      readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
+      renderedProps ={...props , style: readOnlyStyle}
+    }
+
     return (
       <input
         type="text"
         ref="input"
-        { ...props } />
+        { ...renderedProps } />
     );
   };
 
@@ -168,8 +177,7 @@ class MentionsInput extends React.Component {
       readOnlyStyle = {...readOnlyStyle , border: 'none', outline: 'none'};
       renderedProps ={...props , style: readOnlyStyle}
     }
-   // let maxCharCount = maxAllowedTextLength ? maxAllowedTextLength : 100;
-    debugger;
+
     return (
       <textarea
         maxLength={maxLength || null}
@@ -575,6 +583,29 @@ class MentionsInput extends React.Component {
   };
 
   addMention = (suggestion, {mentionDescriptor, querySequenceStart, querySequenceEnd, plainTextValue}) => {
+    //append our desired behavior for having @mention pr +email@address.com
+    if(mentionDescriptor && mentionDescriptor.props && mentionDescriptor.props.type){
+      switch(mentionDescriptor.props.type){
+        case "user":
+        if(suggestion.display && suggestion.display.length > 0){
+          if(suggestion.display.indexOf('@') != 0){
+            suggestion = {...suggestion , display: '@'+ suggestion.display}
+          }
+        }
+        break;
+        case "email":
+        
+        if(suggestion.display && suggestion.display.length > 0){
+          if(suggestion.display.indexOf('+') != 0){
+            suggestion = {...suggestion , display: '+'+ suggestion.display}
+          }
+        }
+        break;
+        default: 
+        break;
+      }
+    }
+
     // Insert mention in the marked up value at the correct position
     const value = this.props.value || "";
     const start = utils.mapPlainTextIndex(value, this.props.markup, querySequenceStart, 'START', this.props.displayTransform);

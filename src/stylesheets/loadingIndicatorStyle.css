@@ -1,0 +1,102 @@
+.loading-text{
+  margin:8px auto;
+  font-family: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif';
+  word-wrap: break-word;
+  
+}
+.loading-container{
+    border:1px solid rgb(208, 210, 211);
+}
+.sm-spin {
+    margin:8px auto;
+    padding: 20px;
+    z-index:99999;
+    position: relative;
+    box-sizing: border-box;
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    border: 8px solid #D0D2D3;
+    border-top-color: #00BF6F;
+    -webkit-animation: sm-spin 1s infinite linear;
+    -moz-animation: sm-spin 1s infinite linear;
+    -ms-animation: sm-spin 1s infinite linear;
+    animation: sm-spin 1s infinite linear;
+  }
+  .sm-spin:after, .sm-spin:before {
+    content: '';
+    position: absolute;
+    background: #00BF6F;
+    border-radius: 50%;
+  }
+  .sm-spin.spin-tiny {
+    height: 16px;
+    width: 16px;
+    border-width: 3px;
+  }
+  .sm-spin.spin-tiny:before, .sm-spin.spin-tiny:after {
+    display: none;
+  }
+  .sm-spin.spin-small {
+    height: 32px;
+    width: 32px;
+    border-width: 5px;
+  }
+  .sm-spin.spin-small:before, .sm-spin.spin-small:after {
+    width: 5px;
+    height: 5px;
+    top: -2px;
+  }
+  .sm-spin.spin-small:before {
+    left: 0;
+  }
+  .sm-spin.spin-small:after {
+    right: 0;
+  }
+  .sm-spin.spin-medium {
+    height: 64px;
+    width: 64px;
+    border-width: 8px;
+  }
+  .sm-spin.spin-medium:before, .sm-spin.spin-medium:after {
+    width: 8px;
+    height: 8px;
+    top: 0;
+  }
+  .sm-spin.spin-medium:before {
+    left: 1px;
+  }
+  .sm-spin.spin-medium:after {
+    right: 1px;
+  }
+  .sm-spin.spin-large {
+    height: 128px;
+    width: 128px;
+    border-width: 10px;
+  }
+  
+  @-webkit-keyframes sm-spin {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes sm-spin {
+    from {
+      -moz-transform: rotate(0deg);
+    }
+    to {
+      -moz-transform: rotate(360deg);
+    }
+  }
+  @-ms-keyframes sm-spin {
+    from {
+      -ms-transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+    }
+  }
+  

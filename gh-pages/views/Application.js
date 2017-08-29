@@ -34,21 +34,21 @@ const users = [
   },
 ]
 
-const asyncData = function (query, callback) {
-  axios.get('./views/sample-response.json').then((response) => {
+// const asyncData = function (query, callback) {
+//   axios.get('./views/sample-response.json').then((response) => {
     
-    var data = response.data;
-    const results = [];
-    for (let i = 0, l = data.length; i < l; ++i) {
-      const display = data[i].display ||  data[i].id;
-      if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-        results.push(data[i]);
-      }
-    }
-    return callback(results);
-  });
+//     var data = response.data;
+//     const results = [];
+//     for (let i = 0, l = data.length; i < l; ++i) {
+//       const display = data[i].display ||  data[i].id;
+//       if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+//         results.push(data[i]);
+//       }
+//     }
+//     return callback(results);
+//   });
 
-};
+// };
 export default function ReactMentions() {
   return (
     <div className="react-mentions">
@@ -61,29 +61,59 @@ export default function ReactMentions() {
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         
       }} 
-      data={asyncData} 
+      data={users} 
       value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
       />
-
+      
+      <br/>  
+      <h2>email trigger case</h2>
+      <SocialMarkupInput 
+      allowEmailTrigger={true}
+      onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+      }} 
+      data={users} 
+      value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      />
       <br/>
       <h2>300 char limit case </h2>
       <SocialMarkupInput 
-      maxAllowedTextLength={300}
-      onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        
-      }} 
-      data={users} 
-      value={"Hi @[John Doe](user:johndoe)"}
+        maxAllowedTextLength={300}
+        onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        }} 
+        data={users} 
+        value={"Hi @[John Doe](user:johndoe)"}
       />
       <br/>
       <h2>read Only case</h2>
-      <SocialMarkupInput readOnly={true} onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+      <SocialMarkupInput 
+        readOnly={true} 
+        onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        }} 
+        data={users} 
+        value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      />
+        <br/>
         
-        }} data={asyncData} value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}/>
+      <h2>Single Line case</h2>
+      <SocialMarkupInput 
+        singleLine={true}
+        onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+          }} 
+        data={users} 
+        value={"Hi @[John Doe](user:johndoe),  add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
+      />
         <br/>
 
-{/* 
-      <SocialMarkupInput singleLine={true} data={asyncData} value={"Hi @[John Doe](user:johndoe)"}/> */}
+       <h2>read only Single Line </h2>
+      <SocialMarkupInput 
+        singleLine={true}
+        readOnly={true} 
+        onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        }} 
+        data={users} 
+        value={"Hi @[John Doe](user:johndoe),  add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
+      />
+        <br/>
       </div>
     </div>
   )

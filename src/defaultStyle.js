@@ -1,7 +1,7 @@
 export default ({
   control: {
       width: '100%',
-      margin: '0',
+      margin: 0,
       backgroundColor: '#fff',
       fontSize: '16px',
       fontWeight: 'normal',
@@ -9,12 +9,13 @@ export default ({
   },
 
   input: {
-    margin: '0',
+    margin: 0,
   },
 
   '&singleLine': {
     control: {
-     display: 'inline-block',
+      display: 'inline-block',
+      width: '100%',
     },
 
     highlighter: {
@@ -33,12 +34,12 @@ export default ({
   '&multiLine': {
     highlighter: {
       padding: '12px',
-    
       fontSize: '16px',
     },
 
     input: {
       fontSize: '16px',
+      minHeight: '65px',
       border: '1px solid #D0D2D3',
       padding: '12px',
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',

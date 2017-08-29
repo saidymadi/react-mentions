@@ -1,15 +1,16 @@
 import React from 'react';
 import substyle from 'substyle';
-
+import './stylesheets/loadingIndicatorStyle';
 function LoadingIndicator({ style }) {
-  const spinnerStyle = style("spinner")
+  
   return (
-    <div { ...style }>
-      <div { ...spinnerStyle }>
-          Hello I am loading
+    <div className="loading-container">
+      <div className="sm-spin">
       </div>
     </div>
   );
 };
 
 export default substyle(LoadingIndicator);
+
+
