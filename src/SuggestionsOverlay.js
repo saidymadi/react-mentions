@@ -44,7 +44,6 @@ class SuggestionsOverlay extends Component {
 
   render() {
     const { suggestions, isLoading, style, onMouseDown } = this.props;
-    console.log(utils.countSuggestions(suggestions) === 0 && !isLoading) ;
     // do not show suggestions until there is some data
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;

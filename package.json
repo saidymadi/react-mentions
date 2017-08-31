@@ -1,11 +1,11 @@
 {
   "name": "@sm/react-mentions",
-  "version": "1.4.0",
+  "version": "1.4.3",
   "description": "React social markups",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run env NODE_ENV=test && mocha",
-    "transpile": "npm run env NODE_ENV=production && babel src --out-dir lib",
+    "transpile": "npm run env NODE_ENV=production && babel src --out-dir lib && gulp minify-css",
     "clean": "rimraf lib",
     "start": "cd gh-pages && webpack-dev-server --config webpack.dev.config.js --port 9090 --d --hot --inline --progress --colors",
     "lint": "eslint src",
@@ -23,7 +23,12 @@
     "mentions",
     "react-component"
   ],
-  "author": "Said Madi",
+  "author": "Jan-Felix Schwarz",
+  "license": "BSD-3-Clause",
+  "contributors": ["Said Madi"],
+  "bugs": {
+    "url": "https://github.com/effektif/react-mentions/issues"
+  },
   "homepage": "https://github.com/effektif/react-mentions",
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -48,6 +53,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-less": "~1.4.0",
     "grunt-gh-pages": "~2.0.0",
+    "gulp-clean-css": "^3.7.0",
     "isparta": "^4.0.0",
     "jquery": "^2.2.1",
     "jsdom": "^8.0.4",
@@ -69,14 +75,13 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.4.1"
-  },
-  "dependencies": {
+    "webpack-dev-server": "2.4.1",
     "axios": "^0.16.2",
     "babel-runtime": "^6.22.0",
-    "es6-promise-promise": "^1.0.0",
+    "es6-promise-promise": "^1.0.0"
+  },
+  "dependencies": {
     "lodash": "^4.5.1",
-    "prop-types": "^15.5.8",
     "substyle": "^6.1.1"
   },
   "peerDependencies": {

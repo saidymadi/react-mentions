@@ -1,14 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
-
 import {defaultStyle} from 'substyle';
-
 import utils from './utils';
 import SuggestionsOverlay from './SuggestionsOverlay';
 import Highlighter from './Highlighter';
