@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import defaultStyle from './defaultStyle';
-import axios from 'axios';
 import MentionsInput from './MentionsInput';
 import Mention from './Mention';
 
@@ -9,7 +8,6 @@ class SocialMarkupInput extends React.Component {
 
     constructor(props) {
         super(props);
-       
         const {data, isLoading, value} = this.props;
         this.state = {
             value: value,
