@@ -64,7 +64,7 @@ class ReactMentions extends React.Component {
         }
         this.setState({...this.state, dataLoading:false})
         return callback(results);
-      },3000);
+      },1000);
         
     });
   

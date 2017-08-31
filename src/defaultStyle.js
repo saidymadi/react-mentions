@@ -48,18 +48,23 @@ export default ({
 
   suggestions: {
     zIndex: 9999,
+    boxShadow: '0 2px 8px 0 rgba(0,0,0,0.14)',
     list: {
       backgroundColor: 'white',
       border: '1px solid rgba(0,0,0,0.15)',
-      fontSize: 14,
+      fontSize: 13,
       fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: 400
     },
 
     item: {
-      padding: '12px 12px',
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',      
+      padding: '12px',
+      color : '#333E48',
+      wordWrap: 'break-word',
       borderBottom: '1px solid rgb(204, 204, 204)',
       '&focused': {
-        backgroundColor: '#cee4e5',
+        backgroundColor: '#edeeee',
       },
     },
   },

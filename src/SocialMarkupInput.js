@@ -61,7 +61,7 @@ class SocialMarkupInput extends React.Component {
                 </MentionsInput>
             </div>
         ) : (
-            <div style={{margin: "0", all: 'initial'}}>
+            <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly ? true : false}

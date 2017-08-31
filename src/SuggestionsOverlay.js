@@ -58,7 +58,15 @@ class SuggestionsOverlay extends Component {
 
       
        {/* render loading indicator  */}
-       {this.props.isLoading && (<LoadingIndicator { ...this.props.style("loadingIndicator") } />) }
+       {this.props.isLoading &&
+        (<ul
+          ref="suggestions"
+          { ...style("list") }
+        >
+          <LoadingIndicator { ...this.props.style("loadingIndicator") } />
+        </ul>)
+       
+       }
        
        {/* render suggestion list */}
        {!this.props.isLoading && utils.countSuggestions(suggestions) > 0 && 
@@ -68,11 +76,6 @@ class SuggestionsOverlay extends Component {
         >
           { this.renderSuggestions() }
         </ul>)
-       }
-
-       {/* render empty list */}
-       {!this.props.isLoading && utils.countSuggestions(suggestions) === 0 && 
-          (<noSuggestionsFound { ...this.props.style("loadingIndicator") } />)
        }
 
       </div>
