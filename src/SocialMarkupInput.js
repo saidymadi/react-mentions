@@ -24,7 +24,7 @@ class SocialMarkupInput extends React.Component {
         const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+))$/;
 
         return allowEmailTrigger ? (
-            <div className="socialMarkupInput">
+            <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
                     markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
