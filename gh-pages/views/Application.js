@@ -77,6 +77,7 @@ class ReactMentions extends React.Component {
       <br/>  
       <h2>regular case</h2>
       <SocialMarkupInput 
+      shouldAutoFocus={true}
       isLoading={this.state.dataLoading}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         

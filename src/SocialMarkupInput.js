@@ -17,7 +17,17 @@ class SocialMarkupInput extends React.Component {
 
     render() {
         //data passed is got to be the url for us to fetch stuff
-        const {value, data, onChangeCallBack, onAdd, singleLine, readOnly, placeholderText, maxAllowedTextLength, allowEmailTrigger, isLoading} = this.props;
+        const {value,
+            data,
+            onChangeCallBack,
+            onAdd,
+            singleLine,
+            readOnly,
+            placeholderText,
+            maxAllowedTextLength,
+            allowEmailTrigger,
+            isLoading,
+            shouldAutoFocus} = this.props;
 
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
@@ -26,6 +36,7 @@ class SocialMarkupInput extends React.Component {
         return allowEmailTrigger ? (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    autoFocus={shouldAutoFocus}
                     markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly}
@@ -63,6 +74,7 @@ class SocialMarkupInput extends React.Component {
         ) : (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    autoFocus={shouldAutoFocus}
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly ? true : false}
                     singleLine={singleLine ? true : false}
@@ -102,7 +114,8 @@ SocialMarkupInput.propTypes = {
     placeholderText: PropTypes.string,
     maxAllowedTextLength: PropTypes.number,
     allowEmailTrigger: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    shouldAutoFocus: PropTypes.bool
 };
 
 
@@ -117,6 +130,7 @@ SocialMarkupInput.defaultProps = {
     readOnly: false,
     placeholderText: "Comment @colleague or using email@address.com...",
     allowEmailTrigger: false,
-    isLoading: false
+    isLoading: false,
+    shouldAutoFocus: false
 };
 export default SocialMarkupInput;

@@ -165,7 +165,7 @@ class MentionsInput extends React.Component {
     };
 
     renderTextarea = (props) => {
-        const {readOnly, maxLength} = props;
+        const {readOnly, maxLength, autoFocus} = props;
 
 
         let textAreaStyle = {...props.style, zIndex: '0'};
@@ -175,13 +175,18 @@ class MentionsInput extends React.Component {
             let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
-
-        return (
+        let textArea = autoFocus ? (
+            <textarea 
+            autoFocus
+            maxLength={maxLength || null}
+            ref="input"
+            { ...renderedProps } />) : (
             <textarea
-                maxLength={maxLength || null}
-                ref="input"
-                { ...renderedProps } />
-        );
+            maxLength={maxLength || null}
+            ref="input"
+            { ...renderedProps } />) ;
+        return textArea;
+        
     };
 
     renderSuggestionsOverlay = () => {
