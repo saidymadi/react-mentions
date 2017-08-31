@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PropTypes } from 'react';
+
 import { defaultStyle } from 'substyle';
 
 import utils from './utils';
 
 import Suggestion from './Suggestion';
 import LoadingIndicator from './LoadingIndicator';
+
 
 class SuggestionsOverlay extends Component {
 
@@ -43,19 +44,25 @@ class SuggestionsOverlay extends Component {
 
   render() {
     const { suggestions, isLoading, style, onMouseDown } = this.props;
-
+    console.log(utils.countSuggestions(suggestions) === 0 && !isLoading) ;
     // do not show suggestions until there is some data
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;
     }
-
+    
+    
     return (
       <div
         {...style}
         onMouseDown={onMouseDown}
       > 
 
-       {!this.props.isLoading && 
+      
+       {/* render loading indicator  */}
+       {this.props.isLoading && (<LoadingIndicator { ...this.props.style("loadingIndicator") } />) }
+       
+       {/* render suggestion list */}
+       {!this.props.isLoading && utils.countSuggestions(suggestions) > 0 && 
         (<ul
           ref="suggestions"
           { ...style("list") }
@@ -64,7 +71,11 @@ class SuggestionsOverlay extends Component {
         </ul>)
        }
 
-        {this.props.isLoading && (<LoadingIndicator { ...this.props.style("loadingIndicator") } />) }
+       {/* render empty list */}
+       {!this.props.isLoading && utils.countSuggestions(suggestions) === 0 && 
+          (<noSuggestionsFound { ...this.props.style("loadingIndicator") } />)
+       }
+
       </div>
     );
   }

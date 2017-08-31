@@ -3,46 +3,23 @@ import defaultStyle from './defaultStyle';
 import axios from 'axios';
 import MentionsInput from './MentionsInput';
 import Mention from './Mention';
-require('./stylesheets/socialMarkupInput');
+
 
 class SocialMarkupInput extends React.Component {
 
     constructor(props) {
         super(props);
-        //  this.fetchSuggestions = this.fetchSuggestions.bind(this);
+       
         const {data, isLoading, value} = this.props;
         this.state = {
             value: value,
-            isLoading: isLoading,
             suggestionsList: data
-            // suggestionsList : this.fetchSuggestions.bind(this)
         };
     }
 
-    // fetchSuggestions (query, callback) {
-    //     this.setState({...this.state,isLoading:true });
-    //     axios.get('./views/sample-response.json').then((response) => {
-    //       setTimeout(()=>{
-    //         var data = response.data;
-    //         const results = [];
-    //         for (let i = 0, l = data.length; i < l; ++i) {
-    //           const display = data[i].display ||  data[i].id;
-    //           if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-    //             results.push(data[i]);
-    //           }
-    //         }
-    //         this.setState({...this.state, isLoading:false });
-    //         return callback(results);
-    //       },3000);
-
-    //     });
-
-    //   }
-
-
     render() {
         //data passed is got to be the url for us to fetch stuff
-        const {value, data, onChangeCallBack, onAdd, singleLine, readOnly, placeholderText, maxAllowedTextLength, allowEmailTrigger} = this.props;
+        const {value, data, onChangeCallBack, onAdd, singleLine, readOnly, placeholderText, maxAllowedTextLength, allowEmailTrigger, isLoading} = this.props;
 
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
@@ -64,7 +41,7 @@ class SocialMarkupInput extends React.Component {
                         }
                     }}
                     style={defaultStyle}
-                    placeholder={placeholderText ? placeholderText : "Comment @colleague or using email@address.com..."}
+                    placeholder={placeholderText}
                 >
                     <Mention
                         type="user"
@@ -73,7 +50,7 @@ class SocialMarkupInput extends React.Component {
                         data={data}
                         onAdd={ onAdd }
                         style={{color: 'rgb(0,191,111)'}}
-                        isLoading={this.state.isLoading}
+                        isLoading={isLoading}
                     />
                     <Mention
                         readOnly={readOnly}
@@ -100,7 +77,7 @@ class SocialMarkupInput extends React.Component {
                         }
                     }}
                     style={defaultStyle}
-                    placeholder={placeholderText ? placeholderText : "Comment @colleague or using email@address.com..."}
+                    placeholder={placeholderText}
                 >
                     <Mention
                         type="user"
@@ -108,7 +85,7 @@ class SocialMarkupInput extends React.Component {
                         data={data}
                         onAdd={ onAdd }
                         style={{backgroundColor: 'transparent', color: 'rgb(0,191,111)'}}
-                        isLoading={this.state.isLoading}
+                        isLoading={isLoading}
                     />
                 </MentionsInput>
             </div>
@@ -126,7 +103,8 @@ SocialMarkupInput.propTypes = {
     readOnly: PropTypes.bool,
     placeholderText: PropTypes.string,
     maxAllowedTextLength: PropTypes.number,
-    allowEmailTrigger: PropTypes.bool
+    allowEmailTrigger: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 
@@ -140,6 +118,7 @@ SocialMarkupInput.defaultProps = {
     singleLine: false,
     readOnly: false,
     placeholderText: "Comment @colleague or using email@address.com...",
-    allowEmailTrigger: false
+    allowEmailTrigger: false,
+    isLoading: false
 };
 export default SocialMarkupInput;

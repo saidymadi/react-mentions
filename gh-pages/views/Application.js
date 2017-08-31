@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import {SocialMarkupInput} from '../../src';
 require('./sample-response.json');
 require('./sample-response2.json');
+require('../../src/stylesheets/loadingIndicatorStyle.css');
+require('../../src/stylesheets/socialMarkupInputstyle.css');
 const users = [
   {
     id: 'walter',
@@ -34,22 +36,39 @@ const users = [
   },
 ]
 
-// const asyncData = function (query, callback) {
-//   axios.get('./views/sample-response.json').then((response) => {
-    
-//     var data = response.data;
-//     const results = [];
-//     for (let i = 0, l = data.length; i < l; ++i) {
-//       const display = data[i].display ||  data[i].id;
-//       if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-//         results.push(data[i]);
-//       }
-//     }
-//     return callback(results);
-//   });
 
-// };
-export default function ReactMentions() {
+class ReactMentions extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      dataLoading:false
+    }
+  }
+ 
+
+
+  render(){
+  const asyncData = function (query, callback) {
+ 
+    axios.get('./views/sample-response.json').then((response) => {
+      this.setState({...this.state, dataLoading:true} )
+      setTimeout(()=>{
+        var data = response.data;
+        const results = [];
+        for (let i = 0, l = data.length; i < l; ++i) {
+          const display = data[i].display ||  data[i].id;
+          if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+            results.push(data[i]);
+          }
+        }
+        this.setState({...this.state, dataLoading:false})
+        return callback(results);
+      },3000);
+        
+    });
+  
+  }.bind(this);
   return (
     <div className="react-mentions">
      
@@ -58,11 +77,13 @@ export default function ReactMentions() {
       <br/>  
       <h2>regular case</h2>
       <SocialMarkupInput 
+      isLoading={this.state.dataLoading}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         
       }} 
-      data={users} 
-      value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      data={asyncData} 
+
+      value={"enter async"}
       />
       
       <br/>  
@@ -116,5 +137,7 @@ export default function ReactMentions() {
         <br/>
       </div>
     </div>
-  )
+  );
+  }
 }
+export default ReactMentions;
