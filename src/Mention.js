@@ -38,12 +38,11 @@ Mention.propTypes = {
 
 Mention.defaultProps = {
   trigger: "@",
-
   onAdd: () => null,
   onRemove: () => null,
   renderSuggestion: null,
   isLoading: false,
-  appendSpaceOnAdd: false
+  appendSpaceOnAdd: true
 };
 
 export default Mention;

@@ -194,6 +194,13 @@ class MentionsInput extends React.Component {
             // do not show suggestions when the input does not have the focus
             return null;
         }
+        if(utils.isRightAfterAMention(value, markup, this.state.selectionStart, displayTransform)) {
+           //ignore and dont show suggestion if the user is typing chars after an email mention 
+           //for example if we start with an email mention of saidymadi@gmail.com
+           //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
+           //we will not display a suggestion menu
+            return null;
+        }
         return (
             <SuggestionsOverlay
                 style={ this.props.style("suggestions") }
@@ -215,9 +222,9 @@ class MentionsInput extends React.Component {
     renderHighlighter = (inputStyle) => {
         const {selectionStart, selectionEnd} = this.state;
         const {markup, displayTransform, singleLine, children, value, style, readOnly} = this.props;
-        //add border non if the view is read only
-        let renderedStyle = {...style("highlighter"), zIndex: '999', pointerEvents: 'none'};
+        let renderedStyle = {...style("highlighter"), zIndex: '99', pointerEvents: 'none'};
         if (readOnly) {
+            //add border non if the view is read only
             renderedStyle = {...renderedStyle, border: 'none', outline: 'none'};
         }
         return (

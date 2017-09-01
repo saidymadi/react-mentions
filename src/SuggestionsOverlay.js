@@ -139,7 +139,7 @@ class SuggestionsOverlay extends Component {
 
 const styled = defaultStyle(({ position }) => ({
   position: "absolute",
-  zIndex: 1,
+  zIndex: 99,
   backgroundColor: "white",
   marginTop: 14,
   minWidth: 100,

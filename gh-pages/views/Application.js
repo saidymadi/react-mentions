@@ -78,6 +78,7 @@ class ReactMentions extends React.Component {
       <h2>regular case</h2>
       <SocialMarkupInput 
       shouldAutoFocus={true}
+      
       isLoading={this.state.dataLoading}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         
@@ -106,8 +107,20 @@ class ReactMentions extends React.Component {
         value={"Hi @[John Doe](user:johndoe)"}
       />
       <br/>
-      <h2>read Only case</h2>
+      <h2>read Only</h2>
       <SocialMarkupInput 
+        readOnly={true} 
+        onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+        }} 
+        data={users} 
+        value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      />
+
+
+      <br/>
+      <h2>read Only Email Trigger</h2>
+      <SocialMarkupInput 
+        allowEmailTrigger={true}
         readOnly={true} 
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         }} 
@@ -122,7 +135,7 @@ class ReactMentions extends React.Component {
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
           }} 
         data={users} 
-        value={"Hi @[John Doe](user:johndoe),  add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
+        value={"Hi @[John Doe](user:johndoe), add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
       />
         <br/>
 

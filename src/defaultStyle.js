@@ -47,7 +47,7 @@ export default ({
   },
 
   suggestions: {
-    zIndex: 9999,
+    zIndex: 999,
     boxShadow: '0 2px 8px 0 rgba(0,0,0,0.14)',
     margin: '18px 0 0 0',
     list: {
