@@ -190,6 +190,8 @@ class MentionsInput extends React.Component {
     };
 
     renderSuggestionsOverlay = () => {
+        const {value , markup , displayTransform} = this.props;
+        
         if (!utils.isNumber(this.state.selectionStart)) {
             // do not show suggestions when the input does not have the focus
             return null;
