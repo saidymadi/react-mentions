@@ -652,7 +652,7 @@ class MentionsInput extends React.Component {
 
         const onAdd = mentionDescriptor.props.onAdd;
         if (onAdd) {
-            onAdd(suggestion.id, suggestion.display);
+            onAdd(suggestion);
         }
 
         // Make sure the suggestions overlay is closed
