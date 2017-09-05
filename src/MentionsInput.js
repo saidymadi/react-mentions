@@ -196,13 +196,13 @@ class MentionsInput extends React.Component {
             // do not show suggestions when the input does not have the focus
             return null;
         }
-        if(utils.isRightAfterAMention(value, markup, this.state.selectionStart, displayTransform)) {
-           //ignore and dont show suggestion if the user is typing chars after an email mention 
-           //for example if we start with an email mention of saidymadi@gmail.com
-           //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
-           //we will not display a suggestion menu
-            return null;
-        }
+        // if(utils.isRightAfterAMention(value, markup, this.state.selectionStart, displayTransform)) {
+        //    //ignore and dont show suggestion if the user is typing chars after an email mention 
+        //    //for example if we start with an email mention of saidymadi@gmail.com
+        //    //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
+        //    //we will not display a suggestion menu
+        //     return null;
+        // }
         return (
             <SuggestionsOverlay
                 style={ this.props.style("suggestions") }
@@ -454,7 +454,7 @@ class MentionsInput extends React.Component {
         if (left + suggestions.offsetWidth > container.offsetWidth) {
             position.right = 0;
         } else {
-            position.left = left
+            position.left = left;
         }
 
         position.top = caretPosition.top - highlighter.scrollTop;
@@ -526,17 +526,29 @@ class MentionsInput extends React.Component {
             suggestions: {}
         });
 
-        // If caret is inside of or directly behind of mention, do not query
         const value = this.props.value || "";
-        if (utils.isInsideOfMention(value, this.props.markup, caretPosition, this.props.displayTransform) ||
-            utils.isInsideOfMention(value, this.props.markup, caretPosition - 1, this.props.displayTransform)) {
+        const positionInValue = utils.mapPlainTextIndex(value,
+            this.props.markup,
+            caretPosition,
+            'NULL',
+            this.props.displayTransform);
+        // If caret is inside of mention, do not query
+        if(positionInValue === null) {
             return;
         }
+        
+
+        const substringStartIndex = utils.getEndOfLastMention(
+            value.substring(0, positionInValue),
+            this.props.markup,
+            this.props.displayTransform);
+
+        const substring = plainTextValue.substring(
+            substringStartIndex,
+                  caretPosition);
 
         // Check if suggestions have to be shown:
-        // Match the trigger patterns of all Mention children the new plain text substring up to the current caret position
-        const substring = plainTextValue.substring(0, caretPosition);
-
+        // Match the trigger patterns of all Mention children on the extracted substring                  
         React.Children.forEach(this.props.children, child => {
             if (!child) {
                 return
@@ -545,8 +557,14 @@ class MentionsInput extends React.Component {
             const regex = _getTriggerRegex(child.props.trigger, this.props)
             const match = substring.match(regex)
             if (match) {
-                const querySequenceStart = substring.indexOf(match[1], match.index)
-                this.queryData(match[2], child, querySequenceStart, querySequenceStart + match[1].length, plainTextValue)
+                const querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index);
+
+                this.queryData(
+                    match[2],
+                    child,
+                    querySequenceStart,
+                    querySequenceStart + match[1].length,
+                    plainTextValue);
             }
         })
     }
@@ -585,7 +603,7 @@ class MentionsInput extends React.Component {
 
         // save in property so that multiple sync state updates from different mentions sources
         // won't overwrite each other
-        this.suggestions = utils.extend({}, this.suggestions, update)
+        this.suggestions = utils.extend({}, this.suggestions, update);
 
         const {focusIndex} = this.state
         const suggestionsCount = utils.countSuggestions(this.suggestions);
@@ -602,7 +620,7 @@ class MentionsInput extends React.Component {
                 case "user":
                     if (suggestion.display && suggestion.display.length > 0) {
                         if (suggestion.display.indexOf('@') != 0) {
-                            suggestion = {...suggestion, display: '@' + suggestion.display}
+                            suggestion = {...suggestion, display: '@' + suggestion.display};
                         }
                     }
                     break;
@@ -610,7 +628,7 @@ class MentionsInput extends React.Component {
 
                     if (suggestion.display && suggestion.display.length > 0) {
                         if (suggestion.display.indexOf('+') != 0) {
-                            suggestion = {...suggestion, display: '+' + suggestion.display}
+                            suggestion = {...suggestion, display: '+' + suggestion.display};
                         }
                     }
                     break;

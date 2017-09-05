@@ -217,55 +217,55 @@ module.exports = {
       return result;
     }
   },
-  //returns true if user is typing chars right after an email address mention 
-  //for example if we start with an email mention of saidymadi@gmail.com
-  //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
-  //we will not display a suggestion menu
-    // Returns whether the given plain text index lies inside a mention
-    isRightAfterAMention: function(value, markup, indexInPlainText, displayTransform) {
-      if(value){
-        //email regex match any email followed by any length of spaces
-        const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+ *))$/;
+  // //returns true if user is typing chars right after an email address mention 
+  // //for example if we start with an email mention of saidymadi@gmail.com
+  // //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
+  // //we will not display a suggestion menu
+  //   // Returns whether the given plain text index lies inside a mention
+  //   isRightAfterAMention: function(value, markup, indexInPlainText, displayTransform) {
+  //     if(value){
+  //       //email regex match any email followed by any length of spaces
+  //       const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+ *))$/;
   
-        let isRightAfterAnEmailMention = false;
-        let plainText = this.getPlainText(value, markup, displayTransform);
+  //       let isRightAfterAnEmailMention = false;
+  //       let plainText = this.getPlainText(value, markup, displayTransform);
         
-        //optimization as we are only interested in the segment leading up to our carret position
-        //therefor no need to handle the enter content
-        plainText = plainText.substr(0,indexInPlainText);
+  //       //optimization as we are only interested in the segment leading up to our carret position
+  //       //therefor no need to handle the enter content
+  //       plainText = plainText.substr(0,indexInPlainText);
    
-        //gather all email mentions in the current segment 
-        let emailMentionsList =  plainText.match(emailRegex);
+  //       //gather all email mentions in the current segment 
+  //       let emailMentionsList =  plainText.match(emailRegex);
   
-        //only if we find email mentions
-        if(emailMentionsList){
-          for(let x = 0 ; x < emailMentionsList.length ; x++){
-             let email = emailMentionsList[0];
-             //investigate from the beggining of the email till our carret  
-             let emailMentionIndex = plainText.indexOf(email);
-             let partialString = plainText.substr(emailMentionIndex,indexInPlainText);
+  //       //only if we find email mentions
+  //       if(emailMentionsList){
+  //         for(let x = 0 ; x < emailMentionsList.length ; x++){
+  //            let email = emailMentionsList[0];
+  //            //investigate from the beggining of the email till our carret  
+  //            let emailMentionIndex = plainText.indexOf(email);
+  //            let partialString = plainText.substr(emailMentionIndex,indexInPlainText);
              
-             //if we find a space char between the email and the current carret position then we conclude that we are not right after an email mention
-             let isThereWhiteSpace = partialString.split(" ").length > 1;
-             if(!isThereWhiteSpace){
-               //here we confirmed that there is an email and our carret position is right after it ( there is no space between the email and our carret )
-               //example saidm@gmail.coms|  or blabla@blabla.com1234555555|
-               //we have to make sure that this particular email mention actually exists because user might be in the middle of typing an email
-              let mentionStart = this.findStartOfMentionInPlainText(value, markup, emailMentionIndex, displayTransform);
-              let emailMentionExists = mentionStart !== undefined && mentionStart !== indexInPlainText;
-              //here we concluded  that there is an existing email markup and the user is trying to type some chars right after it
-              //we should not show the overlay suggestion , and we should ignore this and treat it as text 
-              isRightAfterAnEmailMention = emailMentionExists;
-              break;
-             }
-          } 
-        }
-        return isRightAfterAnEmailMention;
-      }
-      else{
-        return false;
-      }  
-    },
+  //            //if we find a space char between the email and the current carret position then we conclude that we are not right after an email mention
+  //            let isThereWhiteSpace = partialString.split(" ").length > 1;
+  //            if(!isThereWhiteSpace){
+  //              //here we confirmed that there is an email and our carret position is right after it ( there is no space between the email and our carret )
+  //              //example saidm@gmail.coms|  or blabla@blabla.com1234555555|
+  //              //we have to make sure that this particular email mention actually exists because user might be in the middle of typing an email
+  //             let mentionStart = this.findStartOfMentionInPlainText(value, markup, emailMentionIndex, displayTransform);
+  //             let emailMentionExists = mentionStart !== undefined && mentionStart !== indexInPlainText;
+  //             //here we concluded  that there is an existing email markup and the user is trying to type some chars right after it
+  //             //we should not show the overlay suggestion , and we should ignore this and treat it as text 
+  //             isRightAfterAnEmailMention = emailMentionExists;
+  //             break;
+  //            }
+  //         } 
+  //       }
+  //       return isRightAfterAnEmailMention;
+  //     }
+  //     else{
+  //       return false;
+  //     }  
+  //   },
   // Returns whether the given plain text index lies inside a mention
   isInsideOfMention: function(value, markup, indexInPlainText, displayTransform) {
     var mentionStart = this.findStartOfMentionInPlainText(value, markup, indexInPlainText, displayTransform);
@@ -357,7 +357,7 @@ module.exports = {
     });
   },
 
-  getMentions: function (value, markup) {
+  getMentions: function (value, markup, displayTransform) {
     var mentions = [];
     this.iterateMentionsMarkup(value, markup, function (){}, function (match, index, plainTextIndex, id, display, type, start) {
       mentions.push({
@@ -367,10 +367,15 @@ module.exports = {
         index: index,
         plainTextIndex: plainTextIndex
       });
-    });
+    },displayTransform);
     return mentions;
   },
-
+  getEndOfLastMention: function (value, markup, displayTransform) {
+    const mentions = this.getMentions(value, markup, displayTransform);
+    const lastMention = mentions[mentions.length - 1];
+    return lastMention ?
+      lastMention.plainTextIndex + lastMention.display.length : 0;
+   },
   makeMentionsMarkup: function(markup, id, display, type) {
     var result = markup.replace(PLACEHOLDERS.id, id);
     result = result.replace(PLACEHOLDERS.display, display);

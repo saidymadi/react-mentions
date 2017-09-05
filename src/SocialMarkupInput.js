@@ -65,7 +65,7 @@ class SocialMarkupInput extends React.Component {
                         readOnly={readOnly}
                         type="email"
                         trigger={emailRegex}
-                        data={data}
+                        data= { data }
                         onAdd={ onAdd }
                         style={{backgroundColor: 'rgba(0,191,111,0.1)', color: 'rgb(0,191,111)'}}
                     />
@@ -121,8 +121,7 @@ SocialMarkupInput.propTypes = {
 
 SocialMarkupInput.defaultProps = {
     value: '',
-    onChangeCallBack: () => {
-    },
+    onChangeCallBack: () => null,
     onAdd: (added) => {
         console.log(added)
     },
