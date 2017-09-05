@@ -699,7 +699,7 @@ const styled = defaultStyle({
         position: "absolute",
         top: 0,
         boxSizing: "border-box",
-        backgroundColor: "transparent",
+   
         width: "inherit",
     },
 

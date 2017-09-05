@@ -57,7 +57,7 @@ class SocialMarkupInput extends React.Component {
                         trigger="@"
                         readOnly={readOnly}
                         data={data}
-                        onAdd={ onAdd }
+                        onAdd={onAdd}
                         style={{color: 'rgb(0,191,111)'}}
                         isLoading={isLoading}
                     />
@@ -65,8 +65,8 @@ class SocialMarkupInput extends React.Component {
                         readOnly={readOnly}
                         type="email"
                         trigger={emailRegex}
-                        data= { data }
-                        onAdd={ onAdd }
+                        data= {data}
+                        onAdd={onAdd}
                         style={{backgroundColor: 'rgba(0,191,111,0.1)', color: 'rgb(0,191,111)'}}
                     />
                 </MentionsInput>
@@ -93,14 +93,14 @@ class SocialMarkupInput extends React.Component {
                         type="user"
                         readOnly={readOnly ? true : false}
                         data={data}
-                        onAdd={ onAdd }
+                        onAdd={onAdd}
                         style={{backgroundColor: 'transparent', color: 'rgb(0,191,111)'}}
                         isLoading={isLoading}
                     />
                 </MentionsInput>
             </div>
         );
-    }
+}
 }
 
 
