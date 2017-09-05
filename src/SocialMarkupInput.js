@@ -46,6 +46,7 @@ class SocialMarkupInput extends React.Component {
                         this.setState({value: val});
                         //call back with the content value of the text area
                         if (onChangeCallBack && typeof onChangeCallBack === 'function') {
+                            ///XXXX needs revisiting textAreaValAndMarkup , val
                             onChangeCallBack(val, textAreaValAndMarkup, listOfMentions);
                         }
                     }}

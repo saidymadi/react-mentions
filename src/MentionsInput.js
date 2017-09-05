@@ -191,7 +191,7 @@ class MentionsInput extends React.Component {
 
     renderSuggestionsOverlay = () => {
         const {value , markup , displayTransform} = this.props;
-        
+
         if (!utils.isNumber(this.state.selectionStart)) {
             // do not show suggestions when the input does not have the focus
             return null;
@@ -625,7 +625,6 @@ class MentionsInput extends React.Component {
                     }
                     break;
                 case "email":
-
                     if (suggestion.display && suggestion.display.length > 0) {
                         if (suggestion.display.indexOf('+') != 0) {
                             suggestion = {...suggestion, display: '+' + suggestion.display};

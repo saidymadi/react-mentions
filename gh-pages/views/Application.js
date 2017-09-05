@@ -69,6 +69,8 @@ class ReactMentions extends React.Component {
     });
   
   }.bind(this);
+
+  
   return (
     <div className="react-mentions">
      
@@ -78,14 +80,10 @@ class ReactMentions extends React.Component {
       <h2>regular case</h2>
       <SocialMarkupInput 
       shouldAutoFocus={true}
-      
       isLoading={this.state.dataLoading}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        
       }} 
       data={asyncData} 
-
-      value={"enter async"}
       />
       
       <br/>  
