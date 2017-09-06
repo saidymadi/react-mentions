@@ -27,7 +27,8 @@ class SocialMarkupInput extends React.Component {
             maxAllowedTextLength,
             allowEmailTrigger,
             isLoading,
-            shouldAutoFocus} = this.props;
+            shouldAutoFocus,
+            onRemove} = this.props;
 
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
@@ -59,6 +60,7 @@ class SocialMarkupInput extends React.Component {
                         readOnly={readOnly}
                         data={data}
                         onAdd={onAdd}
+                        onRemove={onRemove}
                         style={{color: 'rgb(0,191,111)'}}
                         isLoading={isLoading}
                     />
@@ -68,6 +70,7 @@ class SocialMarkupInput extends React.Component {
                         trigger={emailRegex}
                         data= {data}
                         onAdd={onAdd}
+                        onRemove={onRemove} 
                         style={{backgroundColor: 'rgba(0,191,111,0.1)', color: 'rgb(0,191,111)'}}
                     />
                 </MentionsInput>
@@ -95,6 +98,7 @@ class SocialMarkupInput extends React.Component {
                         readOnly={readOnly ? true : false}
                         data={data}
                         onAdd={onAdd}
+                        onRemove={onRemove}
                         style={{backgroundColor: 'transparent', color: 'rgb(0,191,111)'}}
                         isLoading={isLoading}
                     />
@@ -110,6 +114,7 @@ SocialMarkupInput.propTypes = {
     data: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
     onChangeCallBack: PropTypes.func,
     onAdd: PropTypes.func,
+    onRemove: PropTypes.func, 
     singleLine: PropTypes.bool,
     readOnly: PropTypes.bool,
     placeholderText: PropTypes.string,
@@ -126,10 +131,13 @@ SocialMarkupInput.defaultProps = {
     onAdd: (added) => {
         console.log(added)
     },
+    onRemove: (removed) => {
+        console.log(removed)
+    },
     singleLine: false,
     readOnly: false,
     placeholderText: "Comment @colleague or using email@address.com...",
-    allowEmailTrigger: false,
+    allowEmailTrigger: true,
     isLoading: false,
     shouldAutoFocus: false
 };

@@ -357,16 +357,37 @@ module.exports = {
     });
   },
 
-  getMentions: function (value, markup, displayTransform) {
+  getMentions: function (value, markup, displayTransform, suggestions) {
+    //ge the mentions objects 
+    var suggestedList  = suggestions && suggestions.user && suggestions.user.results ? suggestions.user.results : null ; 
+    if(!suggestedList){
+      suggestedList  = suggestions && suggestions.email && suggestions.email.results ? suggestions.email.results : null ; 
+    }
     var mentions = [];
-    this.iterateMentionsMarkup(value, markup, function (){}, function (match, index, plainTextIndex, id, display, type, start) {
-      mentions.push({
-        id: id,
-        display: display,
-        type: type,
-        index: index,
-        plainTextIndex: plainTextIndex
-      });
+    this.iterateMentionsMarkup(value, markup, function (){}, function (match, index, plainTextIndex, id, display, type, start,suggestions) {
+      let currentMentionedUser = null;
+      if(suggestedList){
+        currentMentionedUser = suggestedList.filter((user)=>{return user.id === id;});
+      }
+      //return all extra props of that user (this way we can pass the email and any other props we care about)
+      if(currentMentionedUser&& currentMentionedUser.length === 1 ){
+        mentions.push({...currentMentionedUser[0],
+          id: id,
+          display: display,
+          type: type,
+          index: index,
+          plainTextIndex: plainTextIndex,
+        });
+      }
+      else{
+        mentions.push({
+          id: id,
+          display: display,
+          type: type,
+          index: index,
+          plainTextIndex: plainTextIndex,
+        });
+      }
     },displayTransform);
     return mentions;
   },

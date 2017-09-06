@@ -9,30 +9,40 @@ const users = [
   {
     id: 'walter',
     display: 'Walter White',
+    otherprop: '12345'
   },
   {
     id: 'jesse',
     display: 'Jesse Pinkman',
+    otherprop: '12345'
   },
   {
     id: 'gus',
     display: 'Gustavo "Gus" Fring',
+    otherprop: '12345'
+
   },
   {
     id: 'saul',
     display: 'Saul Goodman',
+    otherprop: '12345'
   },
   {
     id: 'hank',
     display: 'Hank Schrader',
+    otherprop: '12345'
   },
   {
     id: 'skyler',
     display: 'Skyler White',
+    otherprop: '12345'
+
   },
   {
     id: 'mike',
     display: 'Mike Ehrmantraut',
+    otherprop: '12345'
+
   },
 ]
 
@@ -44,56 +54,69 @@ class ReactMentions extends React.Component {
     this.state = {
       dataLoading:false
     }
+    this.asyncData = function (query, callback) {
+      
+         axios.get('./views/sample-response.json').then((response) => {
+           this.setState({...this.state, dataLoading:true} )
+           setTimeout(()=>{
+             var data = response.data;
+             const results = [];
+             for (let i = 0, l = data.length; i < l; ++i) {
+               const display = data[i].display ||  data[i].id;
+               if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+                 results.push(data[i]);
+               }
+             }
+             this.setState({...this.state, dataLoading:false});
+             return callback(results);
+           },1000);
+             
+         });
+       
+       }.bind(this);
+     
+       this.handleClick= function(e){
+         e.preventDefault()
+         let newVal = this.socialMarkup.state.value+ " Added By Click\n\n @[@John Doe](user:johndoe) \n\n add @[+joe@smoe.com](email:joe@smoe.com)"; 
+         this.socialMarkup.setState({...this.socialMarkup.state, value : newVal });
+       }.bind(this);
   }
  
 
 
   render(){
-  const asyncData = function (query, callback) {
- 
-    axios.get('./views/sample-response.json').then((response) => {
-      this.setState({...this.state, dataLoading:true} )
-      setTimeout(()=>{
-        var data = response.data;
-        const results = [];
-        for (let i = 0, l = data.length; i < l; ++i) {
-          const display = data[i].display ||  data[i].id;
-          if (display.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-            results.push(data[i]);
-          }
-        }
-        this.setState({...this.state, dataLoading:false})
-        return callback(results);
-      },1000);
-        
-    });
-  
-  }.bind(this);
 
-  
+
   return (
     <div className="react-mentions">
      
       <div className="container">
       <h2 id="examples">Examples</h2>
+      <button onClick={this.handleClick}>
+        Add Joe to existing react mentions
+     </button>
       <br/>  
-      <h2>regular case</h2>
-      <SocialMarkupInput 
+      <h2>Email Trigger and @mention case</h2>
+      <SocialMarkupInput   
+      ref={(input) => { this.socialMarkup = input; }}
       shouldAutoFocus={true}
       isLoading={this.state.dataLoading}
+      onAdd={(item)=>{console.log(item)}}
+      onRemove={(item)=>{console.log(item)}}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
+    
       }} 
-      data={asyncData} 
+      data={users} 
       />
       
       <br/>  
-      <h2>email trigger case</h2>
+      <h2>No email trigger case</h2>
       <SocialMarkupInput 
-      allowEmailTrigger={true}
+      allowEmailTrigger={false}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
       }} 
       data={users} 
-      value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+      value={"Hi @[John Doe](user:johndoe), \n\nlet\'s and @[John Doe](user:johndoe) to this conversation..."}
       />
       <br/>
       <h2>300 char limit case </h2>

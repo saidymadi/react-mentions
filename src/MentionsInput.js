@@ -312,8 +312,8 @@ class MentionsInput extends React.Component {
             selectionEnd: selectionEnd,
             setSelectionAfterMentionChange: setSelectionAfterMentionChange,
         });
-
-        let mentions = utils.getMentions(newValue, this.props.markup);
+     
+        let mentions = utils.getMentions(newValue, this.props.markup, null, this.state.suggestion);
 
         // Propagate change
         // let handleChange = this.getOnChange(this.props) || emptyFunction;
@@ -662,7 +662,7 @@ class MentionsInput extends React.Component {
 
         // Propagate change
         const eventMock = {target: {value: newValue}};
-        const mentions = utils.getMentions(newValue, this.props.markup);
+        const mentions = utils.getMentions(newValue, this.props.markup, null, this.state.suggestions);
         const newPlainTextValue = utils.spliceString(plainTextValue, querySequenceStart, querySequenceEnd, displayValue);
 
         this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
