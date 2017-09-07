@@ -77,20 +77,16 @@ class ReactMentions extends React.Component {
      
   
 
-        this.handleClick= function(){
+        this.handleInsertMention= function(){
           //a little uncomfortable must rework to expose add user in a different way 
           if(this.socialMarkup
             &&this.socialMarkup.mentionsInputRef
             &&this.socialMarkup.mentionsInputRef.wrappedInstance
             &&this.socialMarkup.mentionsInputRef.wrappedInstance.refs.input){
               let inputElement = this.socialMarkup.mentionsInputRef.wrappedInstance.refs.input;
-              let newVal =  this.socialMarkup.mentionsInputRef.wrappedInstance.props.value+ " Added By Click\n\n @[@John Doe](user:johndoe)  add @[+joe@smoe.com](email:joe@smoe.com)";
+              let newVal =  this.socialMarkup.state.value + " @[@b3eed](user:johndoe)";
               let updateUnderlyingTextInputArea = function(){
-                inputElement.value = newVal;
-                inputElement.focus();
-                inputElement.selectionStart =0 ;
-                inputElement.selectionEnd = newVal.length;
-                this.socialMarkup.mentionsInputRef.wrappedInstance.handleForceReplaceChange( {target: inputElement });
+                this.socialMarkup.mentionsInputRef.wrappedInstance.handleInsertMention( {target: inputElement });
               }.bind(this);
               this.socialMarkup.setState({...this.socialMarkup.state,value : newVal} , updateUnderlyingTextInputArea)
            } 
@@ -107,7 +103,7 @@ class ReactMentions extends React.Component {
      
       <div className="container">
       <h2 id="examples">Examples</h2>
-      <button onClick={this.handleClick}>
+      <button onClick={this.handleInsertMention}>
         Add Joe to existing react mentions
      </button>
       <br/>  

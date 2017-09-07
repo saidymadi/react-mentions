@@ -137,7 +137,7 @@ class MentionsInput extends React.Component {
         let inputProps = this.getInputProps(!singleLine);
 
         return (
-            <div { ...style("control")} ref={(control)=>{this.controlSaeed = control ;}}>
+            <div { ...style("control")}>
                 { this.renderHighlighter(inputProps.style) }
                 { singleLine ? this.renderInput(inputProps) : this.renderTextarea(inputProps) }
             </div>
@@ -312,7 +312,7 @@ class MentionsInput extends React.Component {
             selectionEnd: selectionEnd,
             setSelectionAfterMentionChange: setSelectionAfterMentionChange,
         });
-        debugger;
+
         let mentions = utils.getMentions(newValue, this.props.markup);
         this.props.getMentionsCallBack(mentions);
         
@@ -323,53 +323,62 @@ class MentionsInput extends React.Component {
         this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
     };
 
-     // Handle replacing text area element's content and firing the change event
-     //this is a way to allow the consumer to force an input into the app 
-     handleForceReplaceChange = (ev) => {
-        if (document.activeElement !== ev.target) {
-            // fix an IE bug (blur from empty input element with placeholder attribute trigger "input" event)
-            return;
-        }
+     // Handle inserting a mention from the consumer 
+     handleInsertMention = (ev) => {
 
-        let value = this.props.value || "";
-        let newPlainTextValue = this.getPlainText(ev.target.value);
+        if(ev && ev.target ){
+            let target = ev.target;
+            target.focus();
+            if (document.activeElement !== target) {
+                // fix an IE bug (blur from empty input element with placeholder attribute trigger "input" event)
+                return;
+            }
+          
+            let value = newValue = this.props.value || "";
+            let newValue = value;
 
-        // Derive the new value to set by applying the local change in the textarea's plain text
-        let newValue = ev.target.value;
+            //update target values 
+            target.value = newValue;
+            target.selectionStart = 0;
+            target.selectionEnd = newValue.length;
 
-        // In case a mention is deleted, also adjust the new plain text value
-        newPlainTextValue = utils.getPlainText(newValue, this.props.markup, this.props.displayTransform);
+            let newPlainTextValue = this.getPlainText(newValue);
 
-        // Save current selection after change to be able to restore caret position after rerendering
-        let selectionStart = ev.target.selectionStart;
-        let selectionEnd = ev.target.selectionEnd;
-        let setSelectionAfterMentionChange = false;
+            
+            // In case a mention is deleted, also adjust the new plain text value
+            newPlainTextValue = utils.getPlainText(newValue, this.props.markup, this.props.displayTransform);
 
-        // Adjust selection range in case a mention will be deleted by the characters outside of the
-        // selection range that are automatically deleted
-        let startOfMention = utils.findStartOfMentionInPlainText(value, this.props.markup, selectionStart, this.props.displayTransform);
+            // Save current selection after change to be able to restore caret position after rerendering
+            let selectionStart = target.selectionStart;
+            let selectionEnd = target.selectionEnd;
+            let setSelectionAfterMentionChange = false;
 
-        if (startOfMention !== undefined && this.state.selectionEnd > startOfMention) {
-            // only if a deletion has taken place
-            selectionStart = startOfMention;
-            selectionEnd = selectionStart;
-            setSelectionAfterMentionChange = true;
-        }
+            // Adjust selection range in case a mention will be deleted by the characters outside of the
+            // selection range that are automatically deleted
+            let startOfMention = utils.findStartOfMentionInPlainText(value, this.props.markup, selectionStart, this.props.displayTransform);
 
-        this.setState({
-            selectionStart: selectionStart,
-            selectionEnd: selectionEnd,
-            setSelectionAfterMentionChange: setSelectionAfterMentionChange,
-        });
-        debugger;
-        let mentions = utils.getMentions(newValue, this.props.markup);
-        this.props.getMentionsCallBack(mentions);
-        
-        // Propagate change
-        // let handleChange = this.getOnChange(this.props) || emptyFunction;
-        let eventMock = {target: {value: newValue}};
-        // this.props.onChange.call(this, eventMock, newValue, newPlainTextValue, mentions);
-        this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
+            if (startOfMention !== undefined && this.state.selectionEnd > startOfMention) {
+                // only if a deletion has taken place
+                selectionStart = startOfMention;
+                selectionEnd = selectionStart;
+                setSelectionAfterMentionChange = true;
+            }
+
+            this.setState({
+                selectionStart: selectionStart,
+                selectionEnd: selectionEnd,
+                setSelectionAfterMentionChange: setSelectionAfterMentionChange,
+            });
+
+            let mentions = utils.getMentions(newValue, this.props.markup);
+            this.props.getMentionsCallBack(mentions);
+            
+            // Propagate change
+            // let handleChange = this.getOnChange(this.props) || emptyFunction;
+            let eventMock = {target: {value: newValue}};
+            // this.props.onChange.call(this, eventMock, newValue, newPlainTextValue, mentions);
+            this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
+     }
     };
 
     // Handle input element's select event
