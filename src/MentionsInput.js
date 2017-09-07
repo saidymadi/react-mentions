@@ -371,8 +371,9 @@ class MentionsInput extends React.Component {
             });
 
             let mentions = utils.getMentions(newValue, this.props.markup);
-            this.props.getMentionsCallBack(mentions);
-            
+            if(this.props.getMentionsCallBack){
+                this.props.getMentionsCallBack(mentions);
+            }
             // Propagate change
             // let handleChange = this.getOnChange(this.props) || emptyFunction;
             let eventMock = {target: {value: newValue}};
@@ -722,8 +723,9 @@ class MentionsInput extends React.Component {
         // Propagate change
         const eventMock = {target: {value: newValue}};
         const mentions = utils.getMentions(newValue, this.props.markup);
-        this.props.getMentionsCallBack(mentions);
-        
+        if(this.props.getMentionsCallBack){
+            this.props.getMentionsCallBack(mentions);
+        }
 
         const newPlainTextValue = utils.spliceString(plainTextValue, querySequenceStart, querySequenceEnd, displayValue);
 
