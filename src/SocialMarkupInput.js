@@ -8,11 +8,12 @@ class SocialMarkupInput extends React.Component {
 
     constructor(props) {
         super(props);
-        const {data, isLoading, value} = this.props;
+        const {data, value} = this.props;
         this.state = {
             value: value,
             suggestionsList: data
         };
+        
     }
 
     render() {
@@ -28,7 +29,8 @@ class SocialMarkupInput extends React.Component {
             allowEmailTrigger,
             isLoading,
             shouldAutoFocus,
-            onRemove} = this.props;
+            onRemove,
+            getMentionsCallBack} = this.props;
 
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
@@ -37,6 +39,8 @@ class SocialMarkupInput extends React.Component {
         return allowEmailTrigger ? (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    getMentionsCallBack={getMentionsCallBack}
+                    ref={(input) => { this.mentionsInputRef = input; }}
                     autoFocus={shouldAutoFocus}
                     markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
@@ -78,6 +82,7 @@ class SocialMarkupInput extends React.Component {
         ) : (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    getMentionsCallBack={getMentionsCallBack}
                     autoFocus={shouldAutoFocus}
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly ? true : false}

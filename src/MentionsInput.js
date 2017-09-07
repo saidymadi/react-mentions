@@ -72,6 +72,7 @@ class MentionsInput extends React.Component {
             PropTypes.arrayOf(PropTypes.element),
         ]).isRequired
     };
+    
 
     static defaultProps = {
         markup: "@[__display__](__id__)",
@@ -87,10 +88,10 @@ class MentionsInput extends React.Component {
     constructor(props) {
         super(props);
         this.suggestions = {};
-
+        
         this.state = {
             focusIndex: 0,
-
+            getMentionsCallBack: this.props.getMentionsCallBack,
             selectionStart: null,
             selectionEnd: null,
 
@@ -119,9 +120,7 @@ class MentionsInput extends React.Component {
         return {
             ...props,
             ...style("input"),
-
             value: this.getPlainText(),
-
             ...(!readOnly && !disabled && {
                 onChange: this.handleChange,
                 onSelect: this.handleSelect,
@@ -138,7 +137,7 @@ class MentionsInput extends React.Component {
         let inputProps = this.getInputProps(!singleLine);
 
         return (
-            <div { ...style("control") }>
+            <div { ...style("control")} ref={(control)=>{this.controlSaeed = control ;}}>
                 { this.renderHighlighter(inputProps.style) }
                 { singleLine ? this.renderInput(inputProps) : this.renderTextarea(inputProps) }
             </div>
@@ -155,12 +154,12 @@ class MentionsInput extends React.Component {
             let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
-
+        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack');
         return (
             <input
                 type="text"
                 ref="input"
-                { ...renderedProps } />
+                { ...purifiedListOfProps } />
         );
     };
 
@@ -175,16 +174,18 @@ class MentionsInput extends React.Component {
             let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
+        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack');
+
         let textArea = autoFocus ? (
             <textarea 
             autoFocus
             maxLength={maxLength || null}
             ref="input"
-            { ...renderedProps } />) : (
+            { ...purifiedListOfProps } />) : (
             <textarea
             maxLength={maxLength || null}
             ref="input"
-            { ...renderedProps } />) ;
+            { ...purifiedListOfProps } />) ;
         return textArea;
         
     };
@@ -243,16 +244,16 @@ class MentionsInput extends React.Component {
                     end: selectionEnd
                 }}
                 onCaretPositionChange={ (position) => this.setState({caretPosition: position}) }>
-
                 { children }
             </Highlighter>
         );
     };
 
     // Returns the text to set as the value of the textarea with all markups removed
-    getPlainText = () => {
+    getPlainText = (markedupValue) => {
+        let markedUpValueToModify = markedupValue? markedupValue : (this.props.value || "");
         return utils.getPlainText(
-            this.props.value || "",
+            markedUpValueToModify,
             this.props.markup,
             this.props.displayTransform
         );
@@ -270,7 +271,6 @@ class MentionsInput extends React.Component {
 
     // Handle input element's change event
     handleChange = (ev) => {
-
         if (document.activeElement !== ev.target) {
             // fix an IE bug (blur from empty input element with placeholder attribute trigger "input" event)
             return;
@@ -312,9 +312,59 @@ class MentionsInput extends React.Component {
             selectionEnd: selectionEnd,
             setSelectionAfterMentionChange: setSelectionAfterMentionChange,
         });
-     
-        let mentions = utils.getMentions(newValue, this.props.markup, null, this.state.suggestion);
+        debugger;
+        let mentions = utils.getMentions(newValue, this.props.markup);
+        this.props.getMentionsCallBack(mentions);
+        
+        // Propagate change
+        // let handleChange = this.getOnChange(this.props) || emptyFunction;
+        let eventMock = {target: {value: newValue}};
+        // this.props.onChange.call(this, eventMock, newValue, newPlainTextValue, mentions);
+        this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
+    };
 
+     // Handle replacing text area element's content and firing the change event
+     //this is a way to allow the consumer to force an input into the app 
+     handleForceReplaceChange = (ev) => {
+        if (document.activeElement !== ev.target) {
+            // fix an IE bug (blur from empty input element with placeholder attribute trigger "input" event)
+            return;
+        }
+
+        let value = this.props.value || "";
+        let newPlainTextValue = this.getPlainText(ev.target.value);
+
+        // Derive the new value to set by applying the local change in the textarea's plain text
+        let newValue = ev.target.value;
+
+        // In case a mention is deleted, also adjust the new plain text value
+        newPlainTextValue = utils.getPlainText(newValue, this.props.markup, this.props.displayTransform);
+
+        // Save current selection after change to be able to restore caret position after rerendering
+        let selectionStart = ev.target.selectionStart;
+        let selectionEnd = ev.target.selectionEnd;
+        let setSelectionAfterMentionChange = false;
+
+        // Adjust selection range in case a mention will be deleted by the characters outside of the
+        // selection range that are automatically deleted
+        let startOfMention = utils.findStartOfMentionInPlainText(value, this.props.markup, selectionStart, this.props.displayTransform);
+
+        if (startOfMention !== undefined && this.state.selectionEnd > startOfMention) {
+            // only if a deletion has taken place
+            selectionStart = startOfMention;
+            selectionEnd = selectionStart;
+            setSelectionAfterMentionChange = true;
+        }
+
+        this.setState({
+            selectionStart: selectionStart,
+            selectionEnd: selectionEnd,
+            setSelectionAfterMentionChange: setSelectionAfterMentionChange,
+        });
+        debugger;
+        let mentions = utils.getMentions(newValue, this.props.markup);
+        this.props.getMentionsCallBack(mentions);
+        
         // Propagate change
         // let handleChange = this.getOnChange(this.props) || emptyFunction;
         let eventMock = {target: {value: newValue}};
@@ -326,7 +376,7 @@ class MentionsInput extends React.Component {
     handleSelect = (ev) => {
         // do nothing while a IME composition session is active
         if (isComposing) return;
-
+       
         // keep track of selection range / caret position
         this.setState({
             selectionStart: ev.target.selectionStart,
@@ -418,7 +468,7 @@ class MentionsInput extends React.Component {
                 selectionEnd: null
             });
         }
-        ;
+        
 
         window.setTimeout(() => {
             this.updateHighlighterScroll();
@@ -662,7 +712,10 @@ class MentionsInput extends React.Component {
 
         // Propagate change
         const eventMock = {target: {value: newValue}};
-        const mentions = utils.getMentions(newValue, this.props.markup, null, this.state.suggestions);
+        const mentions = utils.getMentions(newValue, this.props.markup);
+        this.props.getMentionsCallBack(mentions);
+        
+
         const newPlainTextValue = utils.spliceString(plainTextValue, querySequenceStart, querySequenceEnd, displayValue);
 
         this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);

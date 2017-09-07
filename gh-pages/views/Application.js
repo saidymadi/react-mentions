@@ -59,7 +59,7 @@ class ReactMentions extends React.Component {
          axios.get('./views/sample-response.json').then((response) => {
            this.setState({...this.state, dataLoading:true} )
            setTimeout(()=>{
-             var data = response.data;
+             var data = users;
              const results = [];
              for (let i = 0, l = data.length; i < l; ++i) {
                const display = data[i].display ||  data[i].id;
@@ -75,11 +75,26 @@ class ReactMentions extends React.Component {
        
        }.bind(this);
      
-       this.handleClick= function(e){
-         e.preventDefault()
-         let newVal = this.socialMarkup.state.value+ " Added By Click\n\n @[@John Doe](user:johndoe) \n\n add @[+joe@smoe.com](email:joe@smoe.com)"; 
-         this.socialMarkup.setState({...this.socialMarkup.state, value : newVal });
-       }.bind(this);
+  
+
+        this.handleClick= function(){
+          //a little uncomfortable must rework to expose add user in a different way 
+          if(this.socialMarkup
+            &&this.socialMarkup.mentionsInputRef
+            &&this.socialMarkup.mentionsInputRef.wrappedInstance
+            &&this.socialMarkup.mentionsInputRef.wrappedInstance.refs.input){
+              let inputElement = this.socialMarkup.mentionsInputRef.wrappedInstance.refs.input;
+              let newVal =  this.socialMarkup.mentionsInputRef.wrappedInstance.props.value+ " Added By Click\n\n @[@John Doe](user:johndoe)  add @[+joe@smoe.com](email:joe@smoe.com)";
+              let updateUnderlyingTextInputArea = function(){
+                inputElement.value = newVal;
+                inputElement.focus();
+                inputElement.selectionStart =0 ;
+                inputElement.selectionEnd = newVal.length;
+                this.socialMarkup.mentionsInputRef.wrappedInstance.handleForceReplaceChange( {target: inputElement });
+              }.bind(this);
+              this.socialMarkup.setState({...this.socialMarkup.state,value : newVal} , updateUnderlyingTextInputArea)
+           } 
+        }.bind(this);
   }
  
 
@@ -104,8 +119,9 @@ class ReactMentions extends React.Component {
       onAdd={(item)=>{console.log(item)}}
       onRemove={(item)=>{console.log(item)}}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-    
+        console.log("succeeeed " + listOfMentions);
       }} 
+      getMentionsCallBack={(mentions)=>{console.log(mentions);}}
       data={users} 
       />
       
