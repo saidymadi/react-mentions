@@ -30,15 +30,19 @@ class SuggestionsOverlay extends Component {
     }
 
     const scrollTop = suggestions.scrollTop
-    let { top, bottom } = suggestions.children[this.props.focusIndex].getBoundingClientRect();
-    const { top: topContainer } = suggestions.getBoundingClientRect();
-    top = top - topContainer + scrollTop;
-    bottom = bottom - topContainer + scrollTop;
+    
+    if(suggestions.children[this.props.focusIndex]){
+        let { top, bottom } = suggestions.children[this.props.focusIndex].getBoundingClientRect();
+      
+        const { top: topContainer } = suggestions.getBoundingClientRect();
+        top = top - topContainer + scrollTop;
+        bottom = bottom - topContainer + scrollTop;
 
-    if(top < scrollTop) {
-      suggestions.scrollTop = top
-    } else if(bottom > suggestions.offsetHeight) {
-      suggestions.scrollTop = bottom - suggestions.offsetHeight
+        if(top < scrollTop) {
+          suggestions.scrollTop = top
+        } else if(bottom > suggestions.offsetHeight) {
+          suggestions.scrollTop = bottom - suggestions.offsetHeight
+        }
     }
   }
 

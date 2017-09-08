@@ -11,7 +11,7 @@
 }
 .mentions-suggestions__sm-spin {
     margin:8px auto ;
-    padding: 20px !important;
+    padding: 20px;
     z-index:99999;
     position: relative;
     box-sizing: border-box;
