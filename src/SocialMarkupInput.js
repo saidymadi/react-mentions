@@ -83,15 +83,18 @@ class SocialMarkupInput extends React.Component {
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
                     getMentionsCallBack={getMentionsCallBack}
+                    ref={(input) => { this.mentionsInputRef = input; }}
                     autoFocus={shouldAutoFocus}
+                    markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
-                    readOnly={readOnly ? true : false}
-                    singleLine={singleLine ? true : false}
+                    readOnly={readOnly}
+                    singleLine={singleLine}
                     value={this.state.value}
                     onChange={(ev, val, textAreaValAndMarkup, listOfMentions) => {
                         this.setState({value: val});
                         //call back with the content value of the text area
                         if (onChangeCallBack && typeof onChangeCallBack === 'function') {
+                            ///XXXX needs revisiting textAreaValAndMarkup , val
                             onChangeCallBack(val, textAreaValAndMarkup, listOfMentions);
                         }
                     }}
@@ -100,11 +103,12 @@ class SocialMarkupInput extends React.Component {
                 >
                     <Mention
                         type="user"
-                        readOnly={readOnly ? true : false}
+                        trigger="@"
+                        readOnly={readOnly}
                         data={data}
                         onAdd={onAdd}
                         onRemove={onRemove}
-                        style={{backgroundColor: 'transparent', color: 'rgb(0,191,111)'}}
+                        style={{color: 'rgb(0,191,111)'}}
                         isLoading={isLoading}
                     />
                 </MentionsInput>
@@ -132,18 +136,16 @@ SocialMarkupInput.propTypes = {
 
 SocialMarkupInput.defaultProps = {
     value: '',
+    data: [],
     onChangeCallBack: () => null,
-    onAdd: (added) => {
-        console.log(added)
-    },
-    onRemove: (removed) => {
-        console.log(removed)
-    },
+    onAdd: (added) => null,
+    onRemove: (removed) => null,
     singleLine: false,
     readOnly: false,
-    placeholderText: "Comment @colleague or using email@address.com...",
+    placeholderText: "mention someone @colleague...",
     allowEmailTrigger: true,
     isLoading: false,
-    shouldAutoFocus: false
+    shouldAutoFocus: false,
+    getMentionsCallBack: ()=> null
 };
 export default SocialMarkupInput;

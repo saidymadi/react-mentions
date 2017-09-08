@@ -55,10 +55,11 @@ class ReactMentions extends React.Component {
       dataLoading:false
     }
     this.asyncData = function (query, callback) {
-      
+      this.setState({...this.state, dataLoading:true} )
          axios.get('./views/sample-response.json').then((response) => {
-           this.setState({...this.state, dataLoading:true} )
+      
            setTimeout(()=>{
+            this.setState({...this.state, dataLoading:false});
              var data = users;
              const results = [];
              for (let i = 0, l = data.length; i < l; ++i) {
@@ -67,7 +68,7 @@ class ReactMentions extends React.Component {
                  results.push(data[i]);
                }
              }
-             this.setState({...this.state, dataLoading:false});
+             
              return callback(results);
            },1000);
              
@@ -118,16 +119,15 @@ class ReactMentions extends React.Component {
         console.log("succeeeed " + listOfMentions);
       }} 
       getMentionsCallBack={(mentions)=>{console.log(mentions);}}
-      data={users} 
+      data={this.asyncData } 
       />
       
       <br/>  
-      <h2>No email trigger case</h2>
+      <h2>No email trigger + case async data</h2>
       <SocialMarkupInput 
       allowEmailTrigger={false}
-      onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-      }} 
-      data={users} 
+      isLoading={this.state.dataLoading}
+      data={this.asyncData} 
       value={"Hi @[John Doe](user:johndoe), \n\nlet\'s and @[John Doe](user:johndoe) to this conversation..."}
       />
       <br/>
