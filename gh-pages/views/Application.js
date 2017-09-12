@@ -68,6 +68,7 @@ class ReactMentions extends React.Component {
                  results.push(data[i]);
                }
              }
+             if(!results.length >0){return callback([{id: query, display:query}]);}
              
              return callback(results);
            },1000);
