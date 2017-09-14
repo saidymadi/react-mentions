@@ -84,7 +84,7 @@ class Suggestion extends Component {
     return (
       <div style={{margin:0}}>
         { display.substring(0, i) }
-        <b>
+        <b style={{fontWeight:"bold !important"}}>
           { display.substring(i, i+query.length) }
         </b>
         { display.substring(i+query.length) }
@@ -92,7 +92,6 @@ class Suggestion extends Component {
       </div>
     );
   }
-
 }
 
 const styled = defaultStyle({
