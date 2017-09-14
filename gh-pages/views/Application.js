@@ -163,7 +163,7 @@ class ReactMentions extends React.Component {
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         }} 
         data={users} 
-        value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
+        value={"Hi @[John Doe](user:johndoe) add \n\n @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
       />
         <br/>
         

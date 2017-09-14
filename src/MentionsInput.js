@@ -133,11 +133,15 @@ class MentionsInput extends React.Component {
     };
 
     renderControl = () => {
-        let {singleLine, style} = this.props;
+        let {singleLine, style, readOnly} = this.props;
         let inputProps = this.getInputProps(!singleLine);
+        let controlStyle = {...style("control")};
+        if(readOnly &&  controlStyle &&  controlStyle.style){
+            controlStyle.style.minHeight = 0;
+        }
 
         return (
-            <div { ...style("control")}>
+            <div {...controlStyle}>
                 { this.renderHighlighter(inputProps.style) }
                 { singleLine ? this.renderInput(inputProps) : this.renderTextarea(inputProps) }
             </div>
@@ -151,7 +155,7 @@ class MentionsInput extends React.Component {
         let renderedProps = {...props, style: inputStyle};
         //add border non if the view is read only
         if (readOnly) {
-            let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
+            let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none', minHeight: 0};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
         let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack', 'suggestionMenuTitles');
@@ -171,7 +175,7 @@ class MentionsInput extends React.Component {
         let renderedProps = {...props, style: textAreaStyle}
         //add border non if the view is read only
         if (readOnly) {
-            let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
+            let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none', minHeight: 0};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
         let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack', 'suggestionMenuTitles');
@@ -228,7 +232,7 @@ class MentionsInput extends React.Component {
         let renderedStyle = {...style("highlighter"), zIndex: '99', pointerEvents: 'none'};
         if (readOnly) {
             //add border non if the view is read only
-            renderedStyle = {...renderedStyle, border: 'none', outline: 'none'};
+            renderedStyle = {...renderedStyle, border: 'none', outline: 'none', minHeight: 0};
         }
         return (
             <Highlighter
