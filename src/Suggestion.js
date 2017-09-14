@@ -70,8 +70,8 @@ class Suggestion extends Component {
     const { query, style } = this.props;
 
     let i = display.toLowerCase().indexOf(query.toLowerCase());
-    let descriptionText = description ? (<div 
-        style={{marginTop: "0 0 2px 0", fontSize:10, color: "#6B787F"}}>
+    let descriptionText = description ?
+        (<div style={{margin: "0 2px 0 0", fontSize:10, color: "#6B787F"}}>
         {description}
         </div>) : null;
     if(i === -1) {
