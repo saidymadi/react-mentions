@@ -76,10 +76,8 @@ class ReactMentions extends React.Component {
               }
              //otherwise return matching users 
              return callback(results);
-           },0);
-             
+           },0); 
          });
-       
        }.bind(this);
      
   

@@ -1,6 +1,6 @@
 {
   "name": "@sm/react-mentions",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "React social markups",
   "main": "lib/index.js",
   "scripts": {
@@ -46,9 +46,6 @@
     "css-loader": "^0.20.0",
     "envify": "1.2.0",
     "enzyme": "^2.7.1",
-    "eslint": "^3.16.1",
-    "eslint-config-signavio": "^1.4.2",
-    "eslint-config-signavio-test": "^1.2.1",
     "grunt": "~1.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-less": "~1.4.0",
