@@ -9,39 +9,39 @@ const users = [
   {
     id: 'walter',
     display: 'Walter White',
-    otherprop: '12345'
+    description: '12345'
   },
   {
     id: 'jesse',
     display: 'Jesse Pinkman',
-    otherprop: '12345'
+    description: '12345'
   },
   {
     id: 'gus',
     display: 'Gustavo "Gus" Fring',
-    otherprop: '12345'
+    description: '12345'
 
   },
   {
     id: 'saul',
     display: 'Saul Goodman',
-    otherprop: '12345'
+    description: '12345'
   },
   {
     id: 'hank',
     display: 'Hank Schrader',
-    otherprop: '12345'
+    description: '12345'
   },
   {
     id: 'skyler',
     display: 'Skyler White',
-    otherprop: '12345'
+    description: '12345'
 
   },
   {
     id: 'mike',
     display: 'Mike Ehrmantraut',
-    otherprop: '12345'
+    description: '12345'
 
   },
 ]
@@ -71,7 +71,7 @@ class ReactMentions extends React.Component {
              if(!results.length >0){return callback([{id: query, display:query}]);}
              
              return callback(results);
-           },1000);
+           },0);
              
          });
        

@@ -24,7 +24,7 @@ class Suggestion extends Component {
 
   render() {
     let rest = omit(this.props, 'style', keys(Suggestion.propTypes));
-
+ 
     return (
       <li
         { ...rest }
@@ -32,15 +32,16 @@ class Suggestion extends Component {
       >
 
         { this.renderContent() }
+
       </li>
     );
   }
 
   renderContent() {
     let { id, query, descriptor, suggestion, index } = this.props;
-
+    
     let display = this.getDisplay();
-    let highlightedDisplay = this.renderHighlightedDisplay(display, query);
+    let highlightedDisplay = this.renderHighlightedDisplay(suggestion, query);
 
     if(descriptor.props.renderSuggestion) {
       return descriptor.props.renderSuggestion(suggestion, query, highlightedDisplay, index);
@@ -65,23 +66,30 @@ class Suggestion extends Component {
     return display;
   }
 
-  renderHighlightedDisplay(display) {
+  renderHighlightedDisplay({display,description}) {
     const { query, style } = this.props;
 
     let i = display.toLowerCase().indexOf(query.toLowerCase());
-
+    let descriptionText = description ? (<div 
+        style={{marginTop: 2, fontSize:10, color: "#6B787F"}}>
+        {description}
+        </div>) : null;
     if(i === -1) {
-      return <span { ...style("display") }>{ display }</span>;
+      return (<div { ...style("display") }>
+              { display }
+              {descriptionText}    
+            </div>);
     }
 
     return (
-      <span { ...style("display") }>
+      <div { ...style("display") }>
         { display.substring(0, i) }
         <b { ...style("highlight") }>
           { display.substring(i, i+query.length) }
         </b>
         { display.substring(i+query.length) }
-      </span>
+        {descriptionText}  
+      </div>
     );
   }
 
