@@ -54,8 +54,9 @@ class SuggestionsOverlay extends Component {
       return null;
     }
     let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
-                      (<div style={{fontWeight: 600,
-                        padding: "2px 12px",
+                      (<div style={{ margin: 0,
+                        fontWeight: 600,
+                        padding: "4px 12px",
                         color: "#007FAA",
                         borderTop:"1px solid rgb(204, 204, 204)",
                         borderLeft:"1px solid rgb(204, 204, 204)",
@@ -63,8 +64,9 @@ class SuggestionsOverlay extends Component {
                           {suggestionMenuTitles.loadingTitle}
                       </div>) : null;
     let defaultTitleArea = (suggestionMenuTitles && !this.props.isLoading && suggestionMenuTitles.defaultTitle) ?
-                        (<div style={{fontWeight: 600,
-                          padding: "2px 12px",
+                        (<div style={{margin: 0,
+                          fontWeight: 600,
+                          padding: "4px 12px",
                           color: "#007FAA",
                           borderTop:"1px solid rgb(204, 204, 204)",
                           borderLeft:"1px solid rgb(204, 204, 204)",

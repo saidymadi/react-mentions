@@ -71,20 +71,20 @@ class Suggestion extends Component {
 
     let i = display.toLowerCase().indexOf(query.toLowerCase());
     let descriptionText = description ? (<div 
-        style={{marginTop: 2, fontSize:10, color: "#6B787F"}}>
+        style={{marginTop: "0 0 2px 0", fontSize:10, color: "#6B787F"}}>
         {description}
         </div>) : null;
     if(i === -1) {
-      return (<div { ...style("display") }>
+      return (<div style={{margin:0}}>
               { display }
               {descriptionText}    
             </div>);
     }
 
     return (
-      <div { ...style("display") }>
+      <div style={{margin:0}}>
         { display.substring(0, i) }
-        <b { ...style("highlight") }>
+        <b>
           { display.substring(i, i+query.length) }
         </b>
         { display.substring(i+query.length) }

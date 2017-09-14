@@ -32,7 +32,7 @@ class SocialMarkupInput extends React.Component {
             onRemove,
             getMentionsCallBack,
             suggestionMenuTitles} = this.props;
-debugger
+
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
         const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+))$/;
@@ -53,7 +53,7 @@ debugger
                         this.setState({value: val});
                         //call back with the content value of the text area
                         if (onChangeCallBack && typeof onChangeCallBack === 'function') {
-                            ///XXXX needs revisiting textAreaValAndMarkup , val
+                            ///XXXX needs revisiting the order  textAreaValAndMarkup , val
                             onChangeCallBack(val, textAreaValAndMarkup, listOfMentions);
                         }
                     }}
