@@ -84,9 +84,9 @@ class Suggestion extends Component {
     return (
       <div style={{margin:0}}>
         { display.substring(0, i) }
-        <b style={{fontWeight:"bold !important"}}>
+        <span style={{fontWeight:"bold"}}>
           { display.substring(i, i+query.length) }
-        </b>
+        </span>
         { display.substring(i+query.length) }
         {descriptionText}  
       </div>

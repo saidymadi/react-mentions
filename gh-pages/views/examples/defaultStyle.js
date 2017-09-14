@@ -31,8 +31,7 @@ export default ({
 
   '&multiLine': {
     control: {
-      fontFamily: 'monospace',
-
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
       border: '1px solid silver',
     },
 
