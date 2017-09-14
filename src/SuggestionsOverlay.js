@@ -47,20 +47,37 @@ class SuggestionsOverlay extends Component {
   }
 
   render() {
-    const { suggestions, isLoading, style, onMouseDown } = this.props;
+    //MenuTitles is object of shape MenuTitle { loadingTitle, defaultTitle, othercasesTitle...etc}
+    const { suggestions, isLoading, style, onMouseDown, suggestionMenuTitles } = this.props;
     // do not show suggestions until there is some data
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;
     }
-    
-    
+    let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
+                      (<div style={{fontWeight: 600,
+                        padding: "2px 12px",
+                        color: "#007FAA",
+                        borderTop:"1px solid rgb(204, 204, 204)",
+                        borderLeft:"1px solid rgb(204, 204, 204)",
+                        borderRight:"1px solid rgb(204, 204, 204)"}}>
+                          {suggestionMenuTitles.loadingTitle}
+                      </div>) : null;
+    let defaultTitleArea = (suggestionMenuTitles && !this.props.isLoading && suggestionMenuTitles.defaultTitle) ?
+                        (<div style={{fontWeight: 600,
+                          padding: "2px 12px",
+                          color: "#007FAA",
+                          borderTop:"1px solid rgb(204, 204, 204)",
+                          borderLeft:"1px solid rgb(204, 204, 204)",
+                          borderRight:"1px solid rgb(204, 204, 204)"}}>
+                            {suggestionMenuTitles.defaultTitle}
+                        </div>) : null;
     return (
       <div
         {...style}
         onMouseDown={onMouseDown}
       > 
-
-      
+      {loadingTitleArea}
+      {defaultTitleArea}
        {/* render loading indicator  */}
        {this.props.isLoading &&
         (<ul

@@ -9,42 +9,43 @@ const users = [
   {
     id: 'walter',
     display: 'Walter White',
-    description: '12345'
+    description: 'User'
   },
   {
     id: 'jesse',
     display: 'Jesse Pinkman',
-    description: '12345'
+    description: 'Lonely User'
   },
   {
     id: 'gus',
     display: 'Gustavo "Gus" Fring',
-    description: '12345'
+    description: 'Beautiful'
 
   },
   {
     id: 'saul',
     display: 'Saul Goodman',
-    description: '12345'
+    description: 'Numerical'
   },
   {
     id: 'hank',
     display: 'Hank Schrader',
-    description: '12345'
+    description: 'creative'
   },
   {
     id: 'skyler',
     display: 'Skyler White',
-    description: '12345'
+    description: 'Analysis'
 
   },
   {
     id: 'mike',
     display: 'Mike Ehrmantraut',
-    description: '12345'
+    description: 'Why This'
 
   },
 ]
+const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+))$/;
 
 
 class ReactMentions extends React.Component {
@@ -68,8 +69,12 @@ class ReactMentions extends React.Component {
                  results.push(data[i]);
                }
              }
-             if(!results.length >0){return callback([{id: query, display:query}]);}
-             
+
+             //if email query and no matching result allow user to add this 
+             if(!results.length >0 && emailRegex.test(query)){
+               return callback([{id: query, display:query}]);
+              }
+             //otherwise return matching users 
              return callback(results);
            },0);
              
@@ -116,6 +121,7 @@ class ReactMentions extends React.Component {
       isLoading={this.state.dataLoading}
       onAdd={(item)=>{console.log(item)}}
       onRemove={(item)=>{console.log(item)}}
+      suggestionMenuTitles={{defaultTitle: "Suggestions", loadingTitle: "Fetching..."}}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         console.log("succeeeed " + listOfMentions);
       }} 

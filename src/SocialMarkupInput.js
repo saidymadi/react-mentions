@@ -30,8 +30,9 @@ class SocialMarkupInput extends React.Component {
             isLoading,
             shouldAutoFocus,
             onRemove,
-            getMentionsCallBack} = this.props;
-
+            getMentionsCallBack,
+            suggestionMenuTitles} = this.props;
+debugger
         // use first/outer capture group to extract the full entered sequence to be replaced
         // and second/inner capture group to extract search string from the match
         const emailRegex = /(([^\s@]+@[^\s@]+\.[^\s@]+))$/;
@@ -39,6 +40,7 @@ class SocialMarkupInput extends React.Component {
         return allowEmailTrigger ? (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    suggestionMenuTitles={suggestionMenuTitles}
                     getMentionsCallBack={getMentionsCallBack}
                     ref={(input) => { this.mentionsInputRef = input; }}
                     autoFocus={shouldAutoFocus}
@@ -82,6 +84,7 @@ class SocialMarkupInput extends React.Component {
         ) : (
             <div className="mentions-suggestions__socialMarkupInput">
                 <MentionsInput
+                    suggestionMenuTitles={suggestionMenuTitles}
                     getMentionsCallBack={getMentionsCallBack}
                     ref={(input) => { this.mentionsInputRef = input; }}
                     autoFocus={shouldAutoFocus}

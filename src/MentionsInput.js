@@ -154,7 +154,7 @@ class MentionsInput extends React.Component {
             let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
-        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack');
+        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack', 'suggestionMenuTitles');
         return (
             <input
                 type="text"
@@ -174,7 +174,7 @@ class MentionsInput extends React.Component {
             let readOnlyStyle = {...renderedProps.style, border: 'none', outline: 'none'};
             renderedProps = {...renderedProps, style: readOnlyStyle}
         }
-        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack');
+        let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack', 'suggestionMenuTitles');
 
         let textArea = autoFocus ? (
             <textarea 
@@ -191,8 +191,7 @@ class MentionsInput extends React.Component {
     };
 
     renderSuggestionsOverlay = () => {
-        const {value , markup , displayTransform} = this.props;
-
+        const {value , markup , displayTransform, suggestionMenuTitles} = this.props;
         if (!utils.isNumber(this.state.selectionStart)) {
             // do not show suggestions when the input does not have the focus
             return null;
@@ -206,6 +205,7 @@ class MentionsInput extends React.Component {
         // }
         return (
             <SuggestionsOverlay
+                suggestionMenuTitles={suggestionMenuTitles}
                 style={ this.props.style("suggestions") }
                 position={ this.state.suggestionsPosition }
                 focusIndex={ this.state.focusIndex }
