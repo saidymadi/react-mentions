@@ -1,5 +1,6 @@
 import React from 'react';
 import substyle from 'substyle';
+import DelayRender from './react-delay-render';
 
 function LoadingIndicator({ style }) {
   return (
@@ -10,6 +11,6 @@ function LoadingIndicator({ style }) {
   );
 };
 
-export default substyle(LoadingIndicator);
+export default DelayRender({ delay: 1000 })(substyle(LoadingIndicator));
 
 

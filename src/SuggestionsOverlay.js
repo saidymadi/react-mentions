@@ -6,6 +6,7 @@ import utils from './utils';
 
 import Suggestion from './Suggestion';
 import LoadingIndicator from './LoadingIndicator';
+import DelayRender from './react-delay-render';
 
 
 class SuggestionsOverlay extends Component {
@@ -54,7 +55,7 @@ class SuggestionsOverlay extends Component {
       return null;
     }
     let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
-                      (<div style={{ margin: 0,
+                      DelayRender(<div style={{ margin: 0,
                         fontWeight: 500,
                         fontSize: 12,
                         padding: "4px 11px",
@@ -75,26 +76,20 @@ class SuggestionsOverlay extends Component {
                           borderRight:"1px solid rgb(204, 204, 204)"}}>
                             {suggestionMenuTitles.defaultTitle}
                         </div>) : null;
-    return (
-      <div
+    return  this.props.isLoading ? (
+      <div  {...style}> 
+      
+       
+        <ul  style={{margin:0,padding:0}}>
+          <LoadingIndicator { ...this.props.style("loadingIndicator") } />
+        </ul>
+      </div>) : (<div
         {...style}
         onMouseDown={onMouseDown}
       > 
-      {loadingTitleArea}
       {defaultTitleArea}
-       {/* render loading indicator  */}
-       {this.props.isLoading &&
-        (<ul
-          ref="suggestions"
-          { ...style("list") }
-        >
-          <LoadingIndicator { ...this.props.style("loadingIndicator") } />
-        </ul>)
-       
-       }
-       
        {/* render suggestion list */}
-       {!this.props.isLoading && utils.countSuggestions(suggestions) > 0 && 
+       {utils.countSuggestions(suggestions) > 0 && 
         (<ul
           ref="suggestions"
           { ...style("list") }
@@ -102,9 +97,10 @@ class SuggestionsOverlay extends Component {
           { this.renderSuggestions() }
         </ul>)
        }
-
-      </div>
-    );
+      </div>);
+    
+    
+   
   }
 
   renderSuggestions() {
