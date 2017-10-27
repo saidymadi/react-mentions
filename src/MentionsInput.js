@@ -72,7 +72,7 @@ class MentionsInput extends React.Component {
             PropTypes.arrayOf(PropTypes.element),
         ]).isRequired
     };
-    
+
 
     static defaultProps = {
         markup: "@[__display__](__id__)",
@@ -87,8 +87,9 @@ class MentionsInput extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.suggestions = {};
-        
+
         this.state = {
             focusIndex: 0,
             getMentionsCallBack: this.props.getMentionsCallBack,
@@ -181,7 +182,7 @@ class MentionsInput extends React.Component {
         let purifiedListOfProps = omit(renderedProps, 'getMentionsCallBack', 'suggestionMenuTitles');
 
         let textArea = autoFocus ? (
-            <textarea 
+            <textarea
             autoFocus
             maxLength={maxLength || null}
             ref="input"
@@ -191,7 +192,7 @@ class MentionsInput extends React.Component {
             ref="input"
             { ...purifiedListOfProps } />) ;
         return textArea;
-        
+
     };
 
     renderSuggestionsOverlay = () => {
@@ -201,9 +202,9 @@ class MentionsInput extends React.Component {
             return null;
         }
         // if(utils.isRightAfterAMention(value, markup, this.state.selectionStart, displayTransform)) {
-        //    //ignore and dont show suggestion if the user is typing chars after an email mention 
+        //    //ignore and dont show suggestion if the user is typing chars after an email mention
         //    //for example if we start with an email mention of saidymadi@gmail.com
-        //    //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD| 
+        //    //then the user goes with curtor to the end of the email and type more chars saidymadi@gmail.comSAdsadsaWDSAD|
         //    //we will not display a suggestion menu
         //     return null;
         // }
@@ -319,7 +320,7 @@ class MentionsInput extends React.Component {
 
         let mentions = utils.getMentions(newValue, this.props.markup);
         this.props.getMentionsCallBack(mentions);
-        
+
         // Propagate change
         // let handleChange = this.getOnChange(this.props) || emptyFunction;
         let eventMock = {target: {value: newValue}};
@@ -327,7 +328,7 @@ class MentionsInput extends React.Component {
         this.executeOnChange(eventMock, newValue, newPlainTextValue, mentions);
     };
 
-     // Handle inserting a mention from the consumer 
+     // Handle inserting a mention from the consumer
      handleInsertMention = (ev) => {
 
         if(ev && ev.target ){
@@ -337,18 +338,18 @@ class MentionsInput extends React.Component {
                 // fix an IE bug (blur from empty input element with placeholder attribute trigger "input" event)
                 return;
             }
-          
+
             let value = newValue = this.props.value || "";
             let newValue = value;
 
-            //update target values 
+            //update target values
             target.value = newValue;
             target.selectionStart = 0;
             target.selectionEnd = newValue.length;
 
             let newPlainTextValue = this.getPlainText(newValue);
 
-            
+
             // In case a mention is deleted, also adjust the new plain text value
             newPlainTextValue = utils.getPlainText(newValue, this.props.markup, this.props.displayTransform);
 
@@ -390,7 +391,7 @@ class MentionsInput extends React.Component {
     handleSelect = (ev) => {
         // do nothing while a IME composition session is active
         if (isComposing) return;
-       
+
         // keep track of selection range / caret position
         this.setState({
             selectionStart: ev.target.selectionStart,
@@ -482,7 +483,7 @@ class MentionsInput extends React.Component {
                 selectionEnd: null
             });
         }
-        
+
 
         window.setTimeout(() => {
             this.updateHighlighterScroll();
@@ -600,7 +601,7 @@ class MentionsInput extends React.Component {
         if(positionInValue === null) {
             return;
         }
-        
+
 
         const substringStartIndex = utils.getEndOfLastMention(
             value.substring(0, positionInValue),
@@ -612,7 +613,7 @@ class MentionsInput extends React.Component {
                   caretPosition);
 
         // Check if suggestions have to be shown:
-        // Match the trigger patterns of all Mention children on the extracted substring                  
+        // Match the trigger patterns of all Mention children on the extracted substring
         React.Children.forEach(this.props.children, child => {
             if (!child) {
                 return
@@ -766,7 +767,7 @@ const styled = defaultStyle({
         position: "absolute",
         top: 0,
         boxSizing: "border-box",
-   
+
         width: "inherit",
     },
 

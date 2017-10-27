@@ -4,9 +4,9 @@ import { defaultStyle } from 'substyle';
 const styled = defaultStyle({
   fontWeight: "inherit"
 });
-
+//added handling to adjust for IOS
 const Mention = styled(({ display, style }) => (
-  <span {...style}>
+  <span style={{...style.style,paddingLeft: !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform) ? '3px':'0px'}}>
     { display }
   </span>
 ));

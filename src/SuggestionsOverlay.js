@@ -31,10 +31,10 @@ class SuggestionsOverlay extends Component {
     }
 
     const scrollTop = suggestions.scrollTop
-    
+
     if(suggestions.children[this.props.focusIndex]){
         let { top, bottom } = suggestions.children[this.props.focusIndex].getBoundingClientRect();
-      
+
         const { top: topContainer } = suggestions.getBoundingClientRect();
         top = top - topContainer + scrollTop;
         bottom = bottom - topContainer + scrollTop;
@@ -77,19 +77,19 @@ class SuggestionsOverlay extends Component {
                             {suggestionMenuTitles.defaultTitle}
                         </div>) : null;
     return  this.props.isLoading ? (
-      <div  {...style}> 
-      
-       
+      <div  {...style}>
+
+
         <ul  style={{margin:0,padding:0}}>
           <LoadingIndicator { ...this.props.style("loadingIndicator") } />
         </ul>
       </div>) : (<div
         {...style}
         onMouseDown={onMouseDown}
-      > 
+      >
       {defaultTitleArea}
        {/* render suggestion list */}
-       {utils.countSuggestions(suggestions) > 0 && 
+       {utils.countSuggestions(suggestions) > 0 &&
         (<ul
           ref="suggestions"
           { ...style("list") }
@@ -98,9 +98,9 @@ class SuggestionsOverlay extends Component {
         </ul>)
        }
       </div>);
-    
-    
-   
+
+
+
   }
 
   renderSuggestions() {

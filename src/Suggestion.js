@@ -24,7 +24,7 @@ class Suggestion extends Component {
 
   render() {
     let rest = omit(this.props, 'style', keys(Suggestion.propTypes));
- 
+
     return (
       <li
         { ...rest }
@@ -39,7 +39,7 @@ class Suggestion extends Component {
 
   renderContent() {
     let { id, query, descriptor, suggestion, index } = this.props;
-    
+
     let display = this.getDisplay();
     let highlightedDisplay = this.renderHighlightedDisplay(suggestion, query);
 
@@ -77,7 +77,7 @@ class Suggestion extends Component {
     if(i === -1) {
       return (<div style={{margin:0}}>
               { display }
-              {descriptionText}    
+              {descriptionText}
             </div>);
     }
 
@@ -88,7 +88,7 @@ class Suggestion extends Component {
           { display.substring(i, i+query.length) }
         </span>
         { display.substring(i+query.length) }
-        {descriptionText}  
+        {descriptionText}
       </div>
     );
   }

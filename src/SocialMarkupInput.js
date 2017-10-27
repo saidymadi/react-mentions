@@ -13,7 +13,7 @@ class SocialMarkupInput extends React.Component {
             value: value,
             suggestionsList: data
         };
-        
+
     }
 
     render() {
@@ -76,7 +76,7 @@ class SocialMarkupInput extends React.Component {
                         trigger={emailRegex}
                         data= {data}
                         onAdd={onAdd}
-                        onRemove={onRemove} 
+                        onRemove={onRemove}
                         style={{backgroundColor: 'rgba(0,191,111,0.1)', color: 'rgb(0,191,111)'}}
                     />
                 </MentionsInput>
@@ -126,7 +126,7 @@ SocialMarkupInput.propTypes = {
     data: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
     onChangeCallBack: PropTypes.func,
     onAdd: PropTypes.func,
-    onRemove: PropTypes.func, 
+    onRemove: PropTypes.func,
     singleLine: PropTypes.bool,
     readOnly: PropTypes.bool,
     placeholderText: PropTypes.string,

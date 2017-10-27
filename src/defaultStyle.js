@@ -59,7 +59,7 @@ export default ({
     },
 
     item: {
-      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',      
+      fontFamily: 'National2, "Helvetica Neue", Helvetica, Arial, sans-serif',
       padding: '12px',
       color : '#333E48',
       wordWrap: 'break-word',
