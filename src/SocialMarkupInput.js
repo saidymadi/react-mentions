@@ -22,7 +22,6 @@ class SocialMarkupInput extends React.Component {
             data,
             onChangeCallBack,
             onAdd,
-            singleLine,
             readOnly,
             placeholderText,
             maxAllowedTextLength,
@@ -47,7 +46,6 @@ class SocialMarkupInput extends React.Component {
                     markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly}
-                    singleLine={singleLine}
                     value={this.state.value}
                     onChange={(ev, val, textAreaValAndMarkup, listOfMentions) => {
                         this.setState({value: val});
@@ -91,7 +89,6 @@ class SocialMarkupInput extends React.Component {
                     markup="@[__display__](__type__:__id__)"
                     maxLength={maxAllowedTextLength}
                     readOnly={readOnly}
-                    singleLine={singleLine}
                     value={this.state.value}
                     onChange={(ev, val, textAreaValAndMarkup, listOfMentions) => {
                         this.setState({value: val});
@@ -127,7 +124,6 @@ SocialMarkupInput.propTypes = {
     onChangeCallBack: PropTypes.func,
     onAdd: PropTypes.func,
     onRemove: PropTypes.func,
-    singleLine: PropTypes.bool,
     readOnly: PropTypes.bool,
     placeholderText: PropTypes.string,
     maxAllowedTextLength: PropTypes.number,
@@ -143,7 +139,6 @@ SocialMarkupInput.defaultProps = {
     onChangeCallBack: () => null,
     onAdd: (added) => null,
     onRemove: (removed) => null,
-    singleLine: false,
     readOnly: false,
     placeholderText: "mention someone @colleague...",
     allowEmailTrigger: true,
