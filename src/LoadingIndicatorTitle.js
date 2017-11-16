@@ -5,9 +5,8 @@ import DelayRender from './react-delay-render';
 
 export class LoadingIndicatorTitle extends React.Component {
   static propTypes = {
-    loadingTitle: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired
   }
-
   render(){
     return (
       <div style={{ margin: 0,
@@ -18,7 +17,7 @@ export class LoadingIndicatorTitle extends React.Component {
             borderTop:"1px solid rgb(204, 204, 204)",
             borderLeft:"1px solid rgb(204, 204, 204)",
             borderRight:"1px solid rgb(204, 204, 204)"}}>
-              {this.props.loadingTitle}
+              {this.props.title}
       </div>
     );
   }

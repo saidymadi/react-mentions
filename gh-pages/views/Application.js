@@ -119,7 +119,7 @@ class ReactMentions extends React.Component {
       isLoading={this.state.dataLoading}
       onAdd={(item)=>{console.log(item)}}
       onRemove={(item)=>{console.log(item)}}
-      suggestionMenuTitles={{defaultTitle: "Suggestions", loadingTitle: "Fetching..."}}
+      suggestionMenuTitles={{defaultTitle: "Suggestions", loadingTitle: "MAKE SURE I RENDER..."}}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         console.log("succeeeed " + listOfMentions);
       }}

@@ -53,10 +53,10 @@ class SuggestionsOverlay extends Component {
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;
     }
-    
+
     let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
                       (<LoadingIndicatorTitle 
-                        loadingTitle={suggestionMenuTitles.loadingTitle}
+                        title={suggestionMenuTitles.loadingTitle}
                       />) : null;
     let defaultTitleArea = (suggestionMenuTitles && !this.props.isLoading && suggestionMenuTitles.defaultTitle) ?
                         (<div style={{margin: 0,

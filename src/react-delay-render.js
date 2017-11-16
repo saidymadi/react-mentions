@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 const DelayRender = (args = {}) => Element => class Test extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(...props);
+    Element.props = {...Element.props ,...props }
     this.state = { ready: true };
   }
 
