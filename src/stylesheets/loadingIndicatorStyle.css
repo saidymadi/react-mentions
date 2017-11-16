@@ -10,16 +10,15 @@
     all: initial;
 }
 .mentions-suggestions__sm-spin {
-    margin:8px auto ;
-    padding: 20px;
-    z-index:99999;
+    margin:4px !important;
+    padding: 4px !important;
+    z-index:999;
     position: relative;
     box-sizing: border-box;
-    width: 64px;
-    height: 64px;
     border-radius: 100%;
     border: 8px solid #D0D2D3;
     border-top-color: #00BF6F;
+    min-width: 20;
     -webkit-animation: sm-spin 1s infinite linear;
     -moz-animation: sm-spin 1s infinite linear;
     -ms-animation: sm-spin 1s infinite linear;

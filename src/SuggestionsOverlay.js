@@ -54,17 +54,18 @@ class SuggestionsOverlay extends Component {
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;
     }
-    let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
-                      DelayRender(<div style={{ margin: 0,
-                        fontWeight: 500,
-                        fontSize: 12,
-                        padding: "4px 11px",
-                        color: "#007FAA",
-                        borderTop:"1px solid rgb(204, 204, 204)",
-                        borderLeft:"1px solid rgb(204, 204, 204)",
-                        borderRight:"1px solid rgb(204, 204, 204)"}}>
-                          {suggestionMenuTitles.loadingTitle}
-                      </div>) : null;
+    // figure a better way of doing this 
+    //  let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
+    //                   DelayRender(<div style={{ margin: 0,
+    //                     fontWeight: 500,
+    //                     fontSize: 12,
+    //                     padding: "4px 11px",
+    //                     color: "#007FAA",
+    //                     borderTop:"1px solid rgb(204, 204, 204)",
+    //                     borderLeft:"1px solid rgb(204, 204, 204)",
+    //                     borderRight:"1px solid rgb(204, 204, 204)"}}>
+    //                       {suggestionMenuTitles.loadingTitle}
+    //                   </div>) : null;
     let defaultTitleArea = (suggestionMenuTitles && !this.props.isLoading && suggestionMenuTitles.defaultTitle) ?
                         (<div style={{margin: 0,
                           fontWeight: 500,
@@ -163,7 +164,7 @@ const styled = defaultStyle(({ position }) => ({
   zIndex: 99,
   backgroundColor: "white",
   marginTop: 14,
-  minWidth: 100,
+  minWidth: 20,
   ...position,
 
   list: {

@@ -58,7 +58,7 @@ class ReactMentions extends React.Component {
     this.asyncData = function (query, callback) {
       this.setState({...this.state, dataLoading:true} )
          axios.get('./views/sample-response.json').then((response) => {
-      
+
            setTimeout(()=>{
             this.setState({...this.state, dataLoading:false});
              var data = users;
@@ -70,20 +70,20 @@ class ReactMentions extends React.Component {
                }
              }
 
-             //if email query and no matching result allow user to add this 
+             //if email query and no matching result allow user to add this
              if(!results.length >0 && emailRegex.test(query)){
                return callback([{id: query, display:query}]);
               }
-             //otherwise return matching users 
+             //otherwise return matching users
              return callback(results);
-           },600); 
+           },3000);
          });
        }.bind(this);
-     
-  
+
+
 
         this.handleInsertMention= function(){
-          //a little uncomfortable must rework to expose add user in a different way 
+          //a little uncomfortable must rework to expose add user in a different way
           if(this.socialMarkup
             &&this.socialMarkup.mentionsInputRef
             &&this.socialMarkup.mentionsInputRef.wrappedInstance
@@ -94,10 +94,10 @@ class ReactMentions extends React.Component {
                 this.socialMarkup.mentionsInputRef.wrappedInstance.handleInsertMention( {target: inputElement });
               }.bind(this);
               this.socialMarkup.setState({...this.socialMarkup.state,value : newVal} , updateUnderlyingTextInputArea)
-           } 
+           }
         }.bind(this);
   }
- 
+
 
 
   render(){
@@ -105,15 +105,15 @@ class ReactMentions extends React.Component {
 
   return (
     <div className="react-mentions">
-     
+
       <div className="container">
       <h2 id="examples">Examples</h2>
       <button onClick={this.handleInsertMention}>
         Add Joe to existing react mentions
      </button>
-      <br/>  
+      <br/>
       <h2>Email Trigger and @mention case</h2>
-      <SocialMarkupInput   
+      <SocialMarkupInput
       ref={(input) => { this.socialMarkup = input; }}
       shouldAutoFocus={true}
       isLoading={this.state.dataLoading}
@@ -122,68 +122,68 @@ class ReactMentions extends React.Component {
       suggestionMenuTitles={{defaultTitle: "Suggestions", loadingTitle: "Fetching..."}}
       onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
         console.log("succeeeed " + listOfMentions);
-      }} 
+      }}
       getMentionsCallBack={(mentions)=>{console.log(mentions);}}
-      data={this.asyncData } 
+      data={this.asyncData }
       />
-      
-      <br/>  
+
+      <br/>
       <h2>No email trigger + case async data</h2>
-      <SocialMarkupInput 
+      <SocialMarkupInput
       allowEmailTrigger={false}
       isLoading={this.state.dataLoading}
-      data={this.asyncData} 
+      data={this.asyncData}
       value={"Hi @[John Doe](user:johndoe), \n\nlet\'s and @[John Doe](user:johndoe) to this conversation..."}
       />
       <br/>
       <h2>300 char limit case </h2>
-      <SocialMarkupInput 
+      <SocialMarkupInput
         maxAllowedTextLength={300}
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        }} 
-        data={users} 
+        }}
+        data={users}
         value={"Hi @[John Doe](user:johndoe)"}
       />
       <br/>
       <h2>read Only</h2>
-      <SocialMarkupInput 
-        readOnly={true} 
+      <SocialMarkupInput
+        readOnly={true}
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        }} 
-        data={users} 
+        }}
+        data={users}
         value={"Hi @[John Doe](user:johndoe), \n\nlet\'s add @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
       />
 
 
       <br/>
       <h2>read Only Email Trigger</h2>
-      <SocialMarkupInput 
+      <SocialMarkupInput
         allowEmailTrigger={true}
-        readOnly={true} 
+        readOnly={true}
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        }} 
-        data={users} 
+        }}
+        data={users}
         value={"Hi @[John Doe](user:johndoe) add \n\n @[joe@smoe.com](email:joe@smoe.com) and @[John Doe](user:johndoe) to this conversation..."}
       />
         <br/>
-        
+
       <h2>Single Line case</h2>
-      <SocialMarkupInput 
+      <SocialMarkupInput
         singleLine={true}
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-          }} 
-        data={users} 
+          }}
+        data={users}
         value={"Hi @[John Doe](user:johndoe), add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
       />
         <br/>
 
        <h2>read only Single Line </h2>
-      <SocialMarkupInput 
+      <SocialMarkupInput
         singleLine={true}
-        readOnly={true} 
+        readOnly={true}
         onChangeCallBack={(val,textAreaValAndMarkup,listOfMentions)=>{
-        }} 
-        data={users} 
+        }}
+        data={users}
         value={"Hi @[John Doe](user:johndoe),  add @[joe@smoe.com](email:joe@smoe.com) to this conversation..."}
       />
         <br/>
