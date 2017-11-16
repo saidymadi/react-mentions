@@ -6,8 +6,7 @@ import utils from './utils';
 
 import Suggestion from './Suggestion';
 import LoadingIndicator from './LoadingIndicator';
-import DelayRender from './react-delay-render';
-
+import LoadingIndicatorTitle from './LoadingIndicatorTitle';
 
 class SuggestionsOverlay extends Component {
 
@@ -54,18 +53,11 @@ class SuggestionsOverlay extends Component {
     if(utils.countSuggestions(suggestions) === 0 && !isLoading) {
       return null;
     }
-    // figure a better way of doing this 
-    //  let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
-    //                   DelayRender(<div style={{ margin: 0,
-    //                     fontWeight: 500,
-    //                     fontSize: 12,
-    //                     padding: "4px 11px",
-    //                     color: "#007FAA",
-    //                     borderTop:"1px solid rgb(204, 204, 204)",
-    //                     borderLeft:"1px solid rgb(204, 204, 204)",
-    //                     borderRight:"1px solid rgb(204, 204, 204)"}}>
-    //                       {suggestionMenuTitles.loadingTitle}
-    //                   </div>) : null;
+    
+    let loadingTitleArea = (suggestionMenuTitles && this.props.isLoading && suggestionMenuTitles.loadingTitle) ?
+                      (<LoadingIndicatorTitle 
+                        loadingTitle={suggestionMenuTitles.loadingTitle}
+                      />) : null;
     let defaultTitleArea = (suggestionMenuTitles && !this.props.isLoading && suggestionMenuTitles.defaultTitle) ?
                         (<div style={{margin: 0,
                           fontWeight: 500,
@@ -79,11 +71,8 @@ class SuggestionsOverlay extends Component {
                         </div>) : null;
     return  this.props.isLoading ? (
       <div  {...style}>
-
-
-        <ul  style={{margin:0,padding:0}}>
-          <LoadingIndicator { ...this.props.style("loadingIndicator") } />
-        </ul>
+        {loadingTitleArea}
+        <LoadingIndicator { ...this.props.style("loadingIndicator") } />
       </div>) : (<div
         {...style}
         onMouseDown={onMouseDown}
