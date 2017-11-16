@@ -1,6 +1,6 @@
 {
   "name": "@sm/react-mentions",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "React social markups",
   "main": "lib/index.js",
   "scripts": {
